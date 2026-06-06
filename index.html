@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PERPETDUO® — 3D Viewer</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0a12; color: #fff; font-family: 'Helvetica Neue', Arial, sans-serif; overflow: hidden; }
+  #canvas-container { width: 100vw; height: 100vh; position: relative; }
+  canvas { display: block; }
+
+  #ui-overlay {
+    position: absolute; top: 0; left: 0; right: 0;
+    padding: 20px 30px;
+    background: linear-gradient(to bottom, rgba(10,10,18,0.9), transparent);
+    z-index: 10; pointer-events: none;
+  }
+  #ui-overlay h1 { font-size: 28px; letter-spacing: 4px; color: #c4922a; }
+  #ui-overlay p { font-size: 12px; color: #888; margin-top: 4px; letter-spacing: 1px; }
+
+  #controls {
+    position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 12px; z-index: 10;
+  }
+  .btn {
+    padding: 10px 20px; border: 1px solid #c4922a; background: rgba(196,146,42,0.1);
+    color: #c4922a; font-size: 12px; letter-spacing: 1px; cursor: pointer;
+    border-radius: 4px; text-transform: uppercase; transition: all 0.3s;
+  }
+  .btn:hover { background: #c4922a; color: #0a0a12; }
+  .btn.active { background: #c4922a; color: #0a0a12; }
+
+  #info-panel {
+    position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+    width: 240px; z-index: 10; pointer-events: none;
+  }
+  .info-card {
+    background: rgba(20,20,35,0.85); border: 1px solid rgba(196,146,42,0.3);
+    border-radius: 8px; padding: 14px; margin-bottom: 10px;
+    backdrop-filter: blur(10px); transition: all 0.5s;
+  }
+  .info-card h3 { color: #c4922a; font-size: 11px; letter-spacing: 2px; margin-bottom: 4px; }
+  .info-card p { color: #aaa; font-size: 10px; line-height: 1.5; }
+
+  #hint {
+    position: absolute; bottom: 70px; left: 50%; transform: translateX(-50%);
+    color: #555; font-size: 11px; z-index: 10;
+  }
+</style>
+</head>
+<body>
+
+<div id="canvas-container">
+  <div id="ui-overlay">
+    <h1>PERPETDUO®</h1>
+    <p>PAR ACTINESS METHODE — INTERACTIVE 3D VIEWER</p>
+  </div>
+
+  <div id="info-panel">
+    <div class="info-card" id="card-heat">
+      <h3>CHAUFFANT</h3>
+      <p>3 zones fibre de carbone<br>Poitrine · Dos · Lombaires<br>35°C / 45°C / 55°C</p>
+    </div>
+    <div class="info-card" id="card-weight">
+      <h3>LESTE MODULAIRE</h3>
+      <p>Click-lock magnetique<br>0.5 → 2 kg par cote<br>4 kg max bilateral</p>
+    </div>
+    <div class="info-card" id="card-zip">
+      <h3>ZIP FRONTAL YKK #5</h3>
+      <p>Vislon two-way auto-lock<br>Tirette doree PERPETDUO</p>
+    </div>
+    <div class="info-card" id="card-reflect">
+      <h3>REFLECHISSANT 360°</h3>
+      <p>3M Scotchlite 20mm<br>Visibilite nocturne</p>
+    </div>
+  </div>
+
+  <div id="controls">
+    <button class="btn active" onclick="setView('front')">FACE</button>
+    <button class="btn" onclick="setView('back')">DOS</button>
+    <button class="btn" onclick="setView('side')">PROFIL</button>
+    <button class="btn" onclick="toggleHeat()">CHAUFFAGE</button>
+    <button class="btn" onclick="toggleExplode()">VUE ECLATEE</button>
+  </div>
+
+  <div id="hint">Cliquez et glissez pour tourner · Molette pour zoomer</div>
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0a0a12);
+scene.fog = new THREE.Fog(0x0a0a12, 4, 8);
+
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+camera.position.set(0, 0.1, 2.2);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.2;
+document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.05;
+controls.minDistance = 1.0;
+controls.maxDistance = 5.0;
+controls.target.set(0, 0.05, 0);
+
+// ========== MATERIALS ==========
+
+const navyMat = new THREE.MeshStandardMaterial({
+  color: 0x0e1a33,
+  roughness: 0.82,
+  metalness: 0.0,
+  side: THREE.DoubleSide,
+});
+
+const goldMat = new THREE.MeshStandardMaterial({
+  color: 0xc4922a,
+  roughness: 0.25,
+  metalness: 0.85,
+});
+
+const silverMat = new THREE.MeshStandardMaterial({
+  color: 0xd0d0d5,
+  roughness: 0.1,
+  metalness: 0.95,
+  emissive: 0x444444,
+  emissiveIntensity: 0.2,
+});
+
+const blackMat = new THREE.MeshStandardMaterial({
+  color: 0x111111,
+  roughness: 0.4,
+  metalness: 0.1,
+});
+
+const zipperMat = new THREE.MeshStandardMaterial({
+  color: 0x888890,
+  roughness: 0.15,
+  metalness: 1.0,
+});
+
+const heatMat = new THREE.MeshStandardMaterial({
+  color: 0xcc5500,
+  roughness: 0.6,
+  emissive: 0xff6600,
+  emissiveIntensity: 0,
+  transparent: true,
+  opacity: 0.7,
+});
+
+// ========== VEST GROUP ==========
+const vestGroup = new THREE.Group();
+scene.add(vestGroup);
+
+// ========== TORSO SHAPE (Lathe geometry for realistic body) ==========
+
+function createVestBody() {
+  const group = new THREE.Group();
+
+  // Front panel - using ExtrudeGeometry for a curved panel
+  const shape = new THREE.Shape();
+
+  // Front right panel outline
+  shape.moveTo(0.01, -0.48);    // bottom center
+  shape.lineTo(0.22, -0.46);    // bottom right
+  shape.quadraticCurveTo(0.24, -0.30, 0.21, -0.15);  // waist curve in
+  shape.quadraticCurveTo(0.26, 0.05, 0.25, 0.12);    // chest curve out
+  shape.quadraticCurveTo(0.22, 0.25, 0.18, 0.35);    // upper chest
+  shape.quadraticCurveTo(0.14, 0.42, 0.10, 0.46);    // shoulder
+  shape.lineTo(0.04, 0.50);     // collar
+  shape.lineTo(0.01, 0.50);     // center top
+  shape.lineTo(0.01, -0.48);    // back to start
+
+  const extrudeSettings = {
+    steps: 1,
+    depth: 0.22,
+    bevelEnabled: true,
+    bevelThickness: 0.02,
+    bevelSize: 0.02,
+    bevelSegments: 3,
+  };
+
+  const geo = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+  geo.translate(0, 0, -0.11);
+
+  // Right panel
+  const panelR = new THREE.Mesh(geo, navyMat);
+  panelR.castShadow = true;
+  group.add(panelR);
+
+  // Left panel (mirror)
+  const shapeL = new THREE.Shape();
+  shapeL.moveTo(-0.01, -0.48);
+  shapeL.lineTo(-0.22, -0.46);
+  shapeL.quadraticCurveTo(-0.24, -0.30, -0.21, -0.15);
+  shapeL.quadraticCurveTo(-0.26, 0.05, -0.25, 0.12);
+  shapeL.quadraticCurveTo(-0.22, 0.25, -0.18, 0.35);
+  shapeL.quadraticCurveTo(-0.14, 0.42, -0.10, 0.46);
+  shapeL.lineTo(-0.04, 0.50);
+  shapeL.lineTo(-0.01, 0.50);
+  shapeL.lineTo(-0.01, -0.48);
+
+  const geoL = new THREE.ExtrudeGeometry(shapeL, extrudeSettings);
+  geoL.translate(0, 0, -0.11);
+  const panelL = new THREE.Mesh(geoL, navyMat);
+  panelL.castShadow = true;
+  group.add(panelL);
+
+  return group;
+}
+
+const body = createVestBody();
+vestGroup.add(body);
+
+// ========== COLLAR ==========
+const collarGeo = new THREE.TorusGeometry(0.10, 0.025, 12, 32, Math.PI * 1.7);
+const collar = new THREE.Mesh(collarGeo, navyMat);
+collar.position.set(0, 0.50, 0);
+collar.rotation.x = Math.PI / 2;
+collar.rotation.z = -Math.PI * 0.15;
+vestGroup.add(collar);
+
+// ========== ZIPPER ==========
+const zipGeo = new THREE.BoxGeometry(0.012, 0.96, 0.008);
+const zipper = new THREE.Mesh(zipGeo, zipperMat);
+zipper.position.set(0, 0.01, -0.12);
+vestGroup.add(zipper);
+
+// Zipper teeth (two rows)
+for (let side = -1; side <= 1; side += 2) {
+  for (let i = 0; i < 40; i++) {
+    const tooth = new THREE.Mesh(
+      new THREE.BoxGeometry(0.004, 0.008, 0.004),
+      zipperMat
+    );
+    tooth.position.set(side * 0.007, -0.45 + i * 0.024, -0.12);
+    vestGroup.add(tooth);
+  }
+}
+
+// Zipper pull
+const pullGeo = new THREE.BoxGeometry(0.018, 0.035, 0.012);
+const pull = new THREE.Mesh(pullGeo, goldMat);
+pull.position.set(0, 0.20, -0.135);
+vestGroup.add(pull);
+
+// Pull ring
+const ringGeo = new THREE.TorusGeometry(0.008, 0.002, 8, 16);
+const ring = new THREE.Mesh(ringGeo, goldMat);
+ring.position.set(0, 0.175, -0.135);
+vestGroup.add(ring);
+
+// ========== HEATING ZONES ==========
+const heatZones = [];
+
+function addHeatZone(x, y, z, w, h, rx = 0) {
+  const geo = new THREE.PlaneGeometry(w, h);
+  const mesh = new THREE.Mesh(geo, heatMat.clone());
+  mesh.position.set(x, y, z);
+  mesh.rotation.x = rx;
+  vestGroup.add(mesh);
+  heatZones.push(mesh);
+  return mesh;
+}
+
+// Front chest zones
+addHeatZone(0.12, 0.08, -0.115, 0.12, 0.18);
+addHeatZone(-0.12, 0.08, -0.115, 0.12, 0.18);
+// Back upper
+addHeatZone(0, 0.15, 0.115, 0.22, 0.20);
+// Back lumbar
+addHeatZone(0, -0.22, 0.115, 0.18, 0.14);
+
+// ========== WEIGHT POCKETS ==========
+const pocketGroup = new THREE.Group();
+
+function addPocket(x) {
+  const pGeo = new THREE.BoxGeometry(0.06, 0.10, 0.025);
+  const pocket = new THREE.Mesh(pGeo, blackMat);
+  pocket.position.set(x, -0.20, -0.10);
+  pocket.castShadow = true;
+  pocketGroup.add(pocket);
+
+  // Magnetic dots
+  const dotGeo = new THREE.SphereGeometry(0.005, 8, 8);
+  [[-1,-1],[1,-1],[-1,1],[1,1]].forEach(([dx, dy]) => {
+    const dot = new THREE.Mesh(dotGeo, goldMat);
+    dot.position.set(x + dx * 0.018, -0.20 + dy * 0.035, -0.115);
+    pocketGroup.add(dot);
+  });
+
+  // Weight insert visible
+  const wGeo = new THREE.BoxGeometry(0.045, 0.075, 0.015);
+  const wMat = new THREE.MeshStandardMaterial({ color: 0x222222, roughness: 0.3, metalness: 0.6 });
+  const weight = new THREE.Mesh(wGeo, wMat);
+  weight.position.set(x, -0.20, -0.09);
+  pocketGroup.add(weight);
+
+  // "1 KG" label
+  const labelGeo = new THREE.BoxGeometry(0.025, 0.008, 0.001);
+  const label = new THREE.Mesh(labelGeo, goldMat);
+  label.position.set(x, -0.20, -0.083);
+  pocketGroup.add(label);
+}
+
+addPocket(0.19);
+addPocket(-0.19);
+vestGroup.add(pocketGroup);
+
+// ========== D-RINGS ==========
+const dRingGroup = new THREE.Group();
+function addDRing(x, y, z) {
+  const tGeo = new THREE.TorusGeometry(0.012, 0.003, 8, 24);
+  const dring = new THREE.Mesh(tGeo, goldMat);
+  dring.position.set(x, y, z);
+  dring.rotation.y = Math.PI / 2;
+  dRingGroup.add(dring);
+}
+addDRing(0.255, 0.05, 0);
+addDRing(0.245, -0.15, 0);
+addDRing(-0.255, 0.05, 0);
+addDRing(-0.245, -0.15, 0);
+vestGroup.add(dRingGroup);
+
+// ========== REFLECTIVE STRIPS ==========
+const refGroup = new THREE.Group();
+
+function addRefStrip(points) {
+  const curve = new THREE.CatmullRomCurve3(points.map(p => new THREE.Vector3(...p)));
+  const tubeGeo = new THREE.TubeGeometry(curve, 20, 0.005, 4, false);
+  const strip = new THREE.Mesh(tubeGeo, silverMat);
+  refGroup.add(strip);
+}
+
+// Front edge strips
+addRefStrip([[0.235, -0.44, -0.08],[0.25, -0.15, -0.08],[0.24, 0.10, -0.06],[0.20, 0.35, -0.04],[0.12, 0.45, -0.02]]);
+addRefStrip([[-0.235, -0.44, -0.08],[-0.25, -0.15, -0.08],[-0.24, 0.10, -0.06],[-0.20, 0.35, -0.04],[-0.12, 0.45, -0.02]]);
+// Back bottom
+addRefStrip([[-0.20, -0.45, 0.10],[0, -0.47, 0.11],[0.20, -0.45, 0.10]]);
+// Shoulder
+addRefStrip([[0.12, 0.44, -0.02],[0.08, 0.47, 0.04],[0.12, 0.44, 0.10]]);
+addRefStrip([[-0.12, 0.44, -0.02],[-0.08, 0.47, 0.04],[-0.12, 0.44, 0.10]]);
+vestGroup.add(refGroup);
+
+// ========== HOOD POCKET (back) ==========
+const hoodGeo = new THREE.BoxGeometry(0.20, 0.06, 0.015);
+const hood = new THREE.Mesh(hoodGeo, navyMat);
+hood.position.set(0, -0.02, 0.115);
+vestGroup.add(hood);
+// Hood zip
+const hzGeo = new THREE.BoxGeometry(0.18, 0.003, 0.003);
+const hz = new THREE.Mesh(hzGeo, zipperMat);
+hz.position.set(0, -0.02, 0.124);
+vestGroup.add(hz);
+
+// ========== USB-C ==========
+const usbGeo = new THREE.BoxGeometry(0.014, 0.008, 0.008);
+const usb = new THREE.Mesh(usbGeo, blackMat);
+usb.position.set(-0.16, -0.38, -0.10);
+vestGroup.add(usb);
+
+// ========== LOGO (gold bars as placeholder) ==========
+const logoBackGeo = new THREE.BoxGeometry(0.08, 0.012, 0.002);
+const logoBack = new THREE.Mesh(logoBackGeo, goldMat);
+logoBack.position.set(0, 0.32, 0.12);
+vestGroup.add(logoBack);
+
+const logoFrontGeo = new THREE.BoxGeometry(0.05, 0.008, 0.002);
+const logoFront = new THREE.Mesh(logoFrontGeo, goldMat);
+logoFront.position.set(0.08, 0.30, -0.13);
+vestGroup.add(logoFront);
+
+// ========== FLOOR ==========
+const floorGeo = new THREE.PlaneGeometry(6, 6);
+const floorMat = new THREE.MeshStandardMaterial({ color: 0x0a0a12, roughness: 0.95 });
+const floor = new THREE.Mesh(floorGeo, floorMat);
+floor.rotation.x = -Math.PI / 2;
+floor.position.y = -0.55;
+floor.receiveShadow = true;
+scene.add(floor);
+
+// ========== LIGHTING ==========
+const ambLight = new THREE.AmbientLight(0x222233, 0.4);
+scene.add(ambLight);
+
+const keyLight = new THREE.DirectionalLight(0xfff5e6, 1.8);
+keyLight.position.set(2, 2, -1);
+keyLight.castShadow = true;
+keyLight.shadow.mapSize.width = 2048;
+keyLight.shadow.mapSize.height = 2048;
+scene.add(keyLight);
+
+const fillLight = new THREE.DirectionalLight(0xc0d0ff, 0.6);
+fillLight.position.set(-1.5, 1, -0.5);
+scene.add(fillLight);
+
+const rimLight = new THREE.DirectionalLight(0xffeedd, 0.9);
+rimLight.position.set(0, 1, 2);
+scene.add(rimLight);
+
+const bottomLight = new THREE.PointLight(0xc4922a, 0.3, 3);
+bottomLight.position.set(0, -0.8, 0);
+scene.add(bottomLight);
+
+// Accent spotlights
+const spot1 = new THREE.SpotLight(0xc4922a, 0.5, 4, Math.PI / 8, 0.5);
+spot1.position.set(1, 0.5, -1);
+spot1.target.position.set(0, 0, 0);
+scene.add(spot1);
+scene.add(spot1.target);
+
+// ========== ANIMATION STATE ==========
+let heatOn = false;
+let exploded = false;
+let autoRotate = true;
+let targetRotY = 0;
+
+// ========== CONTROLS ==========
+
+window.setView = function(view) {
+  document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  autoRotate = false;
+
+  const dur = 800;
+  const start = { x: camera.position.x, y: camera.position.y, z: camera.position.z };
+  let end;
+
+  switch(view) {
+    case 'front': end = { x: 0, y: 0.1, z: 2.2 }; break;
+    case 'back': end = { x: 0, y: 0.1, z: -2.2 }; break;
+    case 'side': end = { x: 2.2, y: 0.1, z: 0 }; break;
+  }
+
+  const startTime = performance.now();
+  function animCam(now) {
+    const t = Math.min((now - startTime) / dur, 1);
+    const ease = t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
+    camera.position.set(
+      start.x + (end.x - start.x) * ease,
+      start.y + (end.y - start.y) * ease,
+      start.z + (end.z - start.z) * ease
+    );
+    camera.lookAt(0, 0.05, 0);
+    controls.update();
+    if (t < 1) requestAnimationFrame(animCam);
+  }
+  requestAnimationFrame(animCam);
+}
+
+window.toggleHeat = function() {
+  heatOn = !heatOn;
+  event.target.classList.toggle('active');
+}
+
+window.toggleExplode = function() {
+  exploded = !exploded;
+  event.target.classList.toggle('active');
+}
+
+// ========== RENDER LOOP ==========
+const clock = new THREE.Clock();
+
+function animate() {
+  requestAnimationFrame(animate);
+  const dt = clock.getDelta();
+  const time = clock.getElapsedTime();
+
+  // Slow auto-rotate
+  if (autoRotate) {
+    vestGroup.rotation.y += dt * 0.3;
+  }
+
+  // Heat glow animation
+  heatZones.forEach(zone => {
+    const target = heatOn ? 0.6 + Math.sin(time * 2) * 0.15 : 0;
+    zone.material.emissiveIntensity += (target - zone.material.emissiveIntensity) * 0.05;
+    zone.material.opacity = heatOn ? 0.8 : 0.0;
+  });
+
+  // Exploded view
+  const explodeTarget = exploded ? 1 : 0;
+  const explodeAmount = THREE.MathUtils.lerp(
+    pocketGroup.position.x || 0,
+    explodeTarget * 0.15,
+    0.05
+  );
+
+  if (exploded) {
+    pocketGroup.children.forEach(c => {
+      if (c.position.x > 0) c.position.x = Math.abs(c.userData.origX || c.position.x) + explodeAmount;
+      else c.position.x = -(Math.abs(c.userData.origX || c.position.x) + explodeAmount);
+      if (!c.userData.origX) c.userData.origX = c.position.x;
+    });
+    dRingGroup.children.forEach(c => {
+      if (!c.userData.origX) c.userData.origX = c.position.x;
+      const dir = c.position.x > 0 ? 1 : -1;
+      c.position.x = c.userData.origX + dir * explodeAmount * 0.5;
+    });
+  }
+
+  // Reflective strips shimmer
+  refGroup.children.forEach(strip => {
+    strip.material.emissiveIntensity = 0.15 + Math.sin(time * 1.5 + strip.id) * 0.1;
+  });
+
+  controls.update();
+  renderer.render(scene, camera);
+}
+
+animate();
+
+// Resize
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+</script>
+</body>
+</html>
