@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1400,height=900">
+<title>PERPETDUO® — Product Visualization</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  width: 1400px;
+  height: 900px;
+  background: linear-gradient(135deg, #0a0e1a 0%, #141b2d 40%, #1a1f35 100%);
+  font-family: 'Montserrat', sans-serif;
+  color: #fff;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Subtle grid pattern */
+body::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 30% 50%, rgba(199,155,60,0.03) 0%, transparent 50%),
+    radial-gradient(circle at 70% 30%, rgba(100,140,200,0.04) 0%, transparent 40%);
+}
+
+.header {
+  position: absolute;
+  top: 30px;
+  left: 50px;
+  z-index: 10;
+}
+
+.header h1 {
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: 6px;
+  color: #c79b3c;
+  text-shadow: 0 0 30px rgba(199,155,60,0.3);
+}
+
+.header .subtitle {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 4px;
+  color: rgba(199,155,60,0.6);
+  margin-top: 4px;
+}
+
+/* Main vest SVG container */
+.vest-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-55%, -48%);
+  width: 520px;
+  height: 700px;
+}
+
+/* Feature cards */
+.features-right {
+  position: absolute;
+  right: 40px;
+  top: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 260px;
+}
+
+.feature-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(199,155,60,0.2);
+  border-radius: 10px;
+  padding: 14px 18px;
+  backdrop-filter: blur(10px);
+  position: relative;
+}
+
+.feature-card .icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: rgba(199,155,60,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #c79b3c;
+}
+
+.feature-card h3 {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #c79b3c;
+  margin-bottom: 5px;
+}
+
+.feature-card p {
+  font-size: 10px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.5;
+}
+
+/* Connection lines */
+.lines-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Bottom specs bar */
+.specs-bar {
+  position: absolute;
+  bottom: 30px;
+  left: 50px;
+  right: 50px;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+.spec-item {
+  text-align: center;
+}
+
+.spec-item .value {
+  font-size: 22px;
+  font-weight: 700;
+  color: #c79b3c;
+}
+
+.spec-item .label {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.4);
+  margin-top: 3px;
+}
+
+/* Left features */
+.features-left {
+  position: absolute;
+  left: 40px;
+  top: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 220px;
+}
+
+.tag {
+  display: inline-block;
+  background: rgba(199,155,60,0.12);
+  border: 1px solid rgba(199,155,60,0.25);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: #c79b3c;
+  margin-top: 6px;
+}
+
+/* Watermark */
+.watermark {
+  position: absolute;
+  bottom: 80px;
+  right: 50px;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: rgba(199,155,60,0.15);
+  font-weight: 600;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>PERPETDUO®</h1>
+  <div class="subtitle">PAR ACTINESS MÉTHODE — GILET MULTIFONCTION</div>
+</div>
+
+<!-- SVG Vest illustration -->
+<div class="vest-container">
+<svg viewBox="0 0 520 700" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Navy fabric gradient -->
+    <linearGradient id="navyFabric" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a2444"/>
+      <stop offset="30%" stop-color="#0f1a33"/>
+      <stop offset="60%" stop-color="#162040"/>
+      <stop offset="100%" stop-color="#0d1528"/>
+    </linearGradient>
+
+    <!-- Side shadow gradient -->
+    <linearGradient id="sideShade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="rgba(0,0,0,0)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0.3)"/>
+    </linearGradient>
+
+    <linearGradient id="sideShadeL" x1="1" y1="0" x2="0" y2="0">
+      <stop offset="0%" stop-color="rgba(0,0,0,0)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0.25)"/>
+    </linearGradient>
+
+    <!-- Heat zone glow -->
+    <radialGradient id="heatGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="rgba(230,120,30,0.35)"/>
+      <stop offset="60%" stop-color="rgba(200,80,20,0.15)"/>
+      <stop offset="100%" stop-color="rgba(180,60,10,0)"/>
+    </radialGradient>
+
+    <!-- Reflective strip gradient -->
+    <linearGradient id="reflective" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e8e8ec"/>
+      <stop offset="40%" stop-color="#c8c8d0"/>
+      <stop offset="60%" stop-color="#f0f0f5"/>
+      <stop offset="100%" stop-color="#b8b8c0"/>
+    </linearGradient>
+
+    <!-- Zipper gradient -->
+    <linearGradient id="zipperGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#555"/>
+      <stop offset="30%" stop-color="#888"/>
+      <stop offset="50%" stop-color="#aaa"/>
+      <stop offset="70%" stop-color="#888"/>
+      <stop offset="100%" stop-color="#555"/>
+    </linearGradient>
+
+    <!-- Gold gradient -->
+    <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#d4a843"/>
+      <stop offset="50%" stop-color="#c79b3c"/>
+      <stop offset="100%" stop-color="#b8882e"/>
+    </linearGradient>
+
+    <!-- Ambient light from top -->
+    <linearGradient id="topLight" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(200,210,230,0.08)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+    </linearGradient>
+
+    <!-- Fabric texture -->
+    <filter id="fabricTexture">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" seed="3"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.04"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" mode="overlay"/>
+    </filter>
+
+    <!-- Subtle shadow -->
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="rgba(0,0,0,0.4)"/>
+    </filter>
+
+    <!-- Glow filter -->
+    <filter id="glowFilter">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- ===== VEST BODY - 3/4 VIEW ===== -->
+  <g transform="translate(260, 340)" filter="url(#shadow)">
+
+    <!-- BACK PANEL (visible on right side due to 3/4 angle) -->
+    <path d="
+      M 30,-230
+      C 45,-228 100,-220 130,-210
+      C 155,-195 170,-170 175,-140
+      L 180,-20
+      C 182,40 180,100 178,160
+      C 176,200 170,230 160,250
+      L 140,260
+      C 100,265 60,268 30,270
+      L 30,-230
+    " fill="url(#navyFabric)" stroke="none"/>
+
+    <!-- Back panel shading -->
+    <path d="
+      M 30,-230
+      C 45,-228 100,-220 130,-210
+      C 155,-195 170,-170 175,-140
+      L 180,-20
+      C 182,40 180,100 178,160
+      C 176,200 170,230 160,250
+      L 140,260
+      C 100,265 60,268 30,270
+      L 30,-230
+    " fill="url(#sideShade)" stroke="none"/>
+
+    <!-- FRONT PANEL RIGHT -->
+    <path d="
+      M 30,-230
+      C 15,-228 -60,-220 -110,-210
+      C -145,-195 -165,-170 -172,-140
+      L -175,-20
+      C -177,40 -176,100 -174,160
+      C -172,200 -168,230 -158,250
+      L -140,260
+      C -100,265 -30,268 5,270
+      L 5,270 30,270
+      L 30,-230
+    " fill="url(#navyFabric)" stroke="none"/>
+
+    <!-- Front panel subtle highlight -->
+    <path d="
+      M 30,-230
+      C 15,-228 -60,-220 -110,-210
+      C -145,-195 -165,-170 -172,-140
+      L -175,-20
+      C -177,40 -176,100 -174,160
+      C -172,200 -168,230 -158,250
+      L -140,260
+      C -100,265 -30,268 5,270
+      L 5,270 30,270
+      L 30,-230
+    " fill="url(#topLight)" stroke="none"/>
+
+    <!-- Fabric texture overlay -->
+    <path d="
+      M -172,-140 C -165,-170 -145,-195 -110,-210 C -60,-220 45,-228 130,-210 C 155,-195 170,-170 175,-140 L 180,-20 C 182,40 180,100 178,160 C 176,200 170,230 160,250 L 140,260 C 100,265 -100,265 -140,260 L -158,250 C -168,230 -172,200 -174,160 C -176,100 -177,40 -175,-20 Z
+    " fill="url(#navyFabric)" opacity="0" filter="url(#fabricTexture)"/>
+
+    <!-- ===== COLLAR ===== -->
+    <ellipse cx="10" cy="-235" rx="105" ry="22" fill="#1e2a4a" stroke="#2a3660" stroke-width="0.5"/>
+    <ellipse cx="10" cy="-235" rx="105" ry="22" fill="url(#topLight)"/>
+    <!-- Collar inner -->
+    <ellipse cx="10" cy="-235" rx="85" ry="15" fill="#0d1528" opacity="0.6"/>
+
+    <!-- Collar top edge highlight -->
+    <path d="M -90,-238 C -60,-252 80,-252 115,-238" fill="none" stroke="rgba(200,210,230,0.12)" stroke-width="1"/>
+
+    <!-- ===== ARMHOLES ===== -->
+    <!-- Right armhole (front visible side) -->
+    <path d="M -110,-210 C -130,-200 -165,-175 -172,-140" fill="none" stroke="#0d1528" stroke-width="4"/>
+    <path d="M -110,-210 C -130,-200 -165,-175 -172,-140" fill="none" stroke="rgba(200,210,230,0.06)" stroke-width="1"/>
+
+    <!-- Left armhole (back visible side) -->
+    <path d="M 130,-210 C 150,-200 170,-175 175,-140" fill="none" stroke="#0d1528" stroke-width="3"/>
+
+    <!-- ===== FRONT ZIPPER ===== -->
+    <!-- Zipper track -->
+    <rect x="1" y="-220" width="6" height="480" rx="1" fill="url(#zipperGrad)" opacity="0.7"/>
+
+    <!-- Zipper teeth -->
+    <g opacity="0.5">
+      <!-- Teeth pattern -->
+      <line x1="1" y1="-210" x2="7" y2="-210" stroke="#999" stroke-width="0.5"/>
+      <line x1="1" y1="-200" x2="7" y2="-200" stroke="#999" stroke-width="0.5"/>
+      <line x1="1" y1="-190" x2="7" y2="-190" stroke="#999" stroke-width="0.5"/>
+      <line x1="1" y1="-180" x2="7" y2="-180" stroke="#999" stroke-width="0.5"/>
+      <line x1="1" y1="-170" x2="7" y2="-170" stroke="#999" stroke-width="0.5"/>
+      <line x1="1" y1="-160" x2="7" y2="-160" stroke="#999" stroke-width="0.5"/>
+      <line x1="1" y1="-150" x2="7" y2="-150" stroke="#999" stroke-width="0.5"/>
+      <line x1="1" y1="-140" x2="7" y2="-140" stroke="#999" stroke-width="0.5"/>
+      <line x1="1" y1="-130" x2="7" y2="-130" stroke="#999" stroke-width="0.5"/>
+      <line x1="1" y1="-120" x2="7" y2="-120" stroke="#999" stroke-width="0.5"/>
+      <line x1="1" y1="-110" x2="7" y2="-110" stroke="#999" stroke-width="0.5"/>
+      <line x1="1" y1="-100" x2="7" y2="-100" stroke="#999" stroke-width="0.5"/>
+      <line x1="1" y1="-90" x2="7" y2="-90" stroke="#999" stroke-width="0.5"/>
+      <line x1="1" y1="-80" x2="7" y2="-80" stroke="#999" stroke-width="0.5"/>
+      <line x1="1" y1="-70" x2="7" y2="-70" stroke="#999" stroke-width="0.5"/>
+      <line x1="1" y1="-60" x2="7" y2="-60" stroke="#999" stroke-width="0.5"/>
+      <line x1="1" y1="-50" x2="7" y2="-50" stroke="#999" stroke-width="0.5"/>
+      <line x1="1" y1="-40" x2="7" y2="-40" stroke="#999" stroke-width="0.5"/>
+      <line x1="1" y1="-30" x2="7" y2="-30" stroke="#999" stroke-width="0.5"/>
+      <line x1="1" y1="-20" x2="7" y2="-20" stroke="#999" stroke-width="0.5"/>
+      <line x1="1" y1="-10" x2="7" y2="-10" stroke="#999" stroke-width="0.5"/>
+      <line x1="1" y1="0" x2="7" y2="0" stroke="#999" stroke-width="0.5"/>
+    </g>
+
+    <!-- Zipper pull tab -->
+    <rect x="-2" y="-50" width="12" height="18" rx="2" fill="url(#goldGrad)" filter="url(#glowFilter)"/>
+    <rect x="0" y="-47" width="8" height="3" rx="1" fill="rgba(0,0,0,0.3)"/>
+
+    <!-- ===== HEAT ZONES ===== -->
+    <!-- Front chest heat zone left -->
+    <ellipse cx="-75" cy="-100" rx="50" ry="60" fill="url(#heatGlow)"/>
+    <!-- Chest heat zone border hint -->
+    <path d="M -110,-140 C -105,-155 -45,-155 -40,-140 L -35,-60 C -40,-45 -105,-45 -110,-60 Z"
+          fill="none" stroke="rgba(230,120,30,0.2)" stroke-width="0.8" stroke-dasharray="4,3"/>
+
+    <!-- Back heat zone (visible on right side) -->
+    <ellipse cx="100" cy="-60" rx="45" ry="70" fill="url(#heatGlow)" opacity="0.6"/>
+
+    <!-- ===== WEIGHT POCKETS ===== -->
+    <!-- Front pocket left -->
+    <rect x="-130" y="100" width="65" height="75" rx="5" fill="#0a0f1e" stroke="#1e2a4a" stroke-width="1"/>
+    <!-- Pocket flap -->
+    <rect x="-130" y="96" width="65" height="12" rx="3" fill="#141e35" stroke="#1e2a4a" stroke-width="0.5"/>
+    <!-- Magnetic dots -->
+    <circle cx="-112" cy="103" r="2.5" fill="url(#goldGrad)"/>
+    <circle cx="-82" cy="103" r="2.5" fill="url(#goldGrad)"/>
+    <circle cx="-112" cy="107" r="1.5" fill="url(#goldGrad)" opacity="0.5"/>
+    <circle cx="-82" cy="107" r="1.5" fill="url(#goldGrad)" opacity="0.5"/>
+
+    <!-- Weight block inside pocket hint -->
+    <rect x="-122" y="115" width="48" height="50" rx="3" fill="rgba(30,40,60,0.5)" stroke="rgba(199,155,60,0.1)" stroke-width="0.5"/>
+    <text x="-98" y="145" text-anchor="middle" font-size="8" font-weight="600" fill="rgba(199,155,60,0.3)" font-family="Montserrat">1 KG</text>
+
+    <!-- Back pocket (visible side) -->
+    <rect x="65" y="110" width="55" height="65" rx="4" fill="#0a0f1e" stroke="#1e2a4a" stroke-width="0.8" opacity="0.7"/>
+    <rect x="65" y="107" width="55" height="10" rx="3" fill="#141e35" stroke="#1e2a4a" stroke-width="0.5" opacity="0.7"/>
+
+    <!-- ===== D-RINGS ===== -->
+    <!-- D-ring upper right side -->
+    <g transform="translate(-170, -90)">
+      <ellipse cx="0" cy="0" rx="7" ry="5" fill="none" stroke="url(#goldGrad)" stroke-width="2.5"/>
+      <rect x="-3" y="-2" width="6" height="4" rx="1" fill="#141e35"/>
+    </g>
+
+    <!-- D-ring lower right side -->
+    <g transform="translate(-168, 130)">
+      <ellipse cx="0" cy="0" rx="7" ry="5" fill="none" stroke="url(#goldGrad)" stroke-width="2.5"/>
+      <rect x="-3" y="-2" width="6" height="4" rx="1" fill="#141e35"/>
+    </g>
+
+    <!-- D-ring upper left (back side visible) -->
+    <g transform="translate(177, -80)">
+      <ellipse cx="0" cy="0" rx="5" ry="4" fill="none" stroke="url(#goldGrad)" stroke-width="2" opacity="0.6"/>
+    </g>
+
+    <!-- ===== REFLECTIVE STRIPS ===== -->
+    <!-- Front left reflective strip -->
+    <path d="M -155,250 C -158,200 -162,100 -165,0 C -167,-50 -160,-130 -145,-180"
+          fill="none" stroke="url(#reflective)" stroke-width="4" opacity="0.7"/>
+
+    <!-- Front right seam reflective -->
+    <path d="M 155,248 C 160,200 168,100 172,0 C 175,-50 170,-120 160,-170"
+          fill="none" stroke="url(#reflective)" stroke-width="3" opacity="0.4"/>
+
+    <!-- Bottom hem reflective strip -->
+    <path d="M -140,258 C -80,266 60,268 140,260"
+          fill="none" stroke="url(#reflective)" stroke-width="4" opacity="0.6"/>
+
+    <!-- Shoulder reflective strips -->
+    <path d="M -100,-215 L -50,-228" fill="none" stroke="url(#reflective)" stroke-width="3.5" opacity="0.6"/>
+    <path d="M 80,-215 L 120,-210" fill="none" stroke="url(#reflective)" stroke-width="2.5" opacity="0.4"/>
+
+    <!-- ===== HOOD POCKET (back collar area) ===== -->
+    <path d="M -40,-220 C -30,-225 50,-225 70,-220 L 70,-200 C 50,-195 -30,-195 -40,-200 Z"
+          fill="#111a30" stroke="#1e2a4a" stroke-width="0.5"/>
+    <!-- Hood pocket tab -->
+    <rect x="10" y="-226" width="15" height="6" rx="2" fill="#1e2a4a"/>
+
+    <!-- ===== USB-C PORT ===== -->
+    <g transform="translate(-145, 200)">
+      <rect x="-6" y="-3" width="12" height="6" rx="2" fill="#0a0e18" stroke="#333" stroke-width="0.8"/>
+      <rect x="-4" y="-1.5" width="8" height="3" rx="1" fill="#1a1a1a"/>
+      <text x="0" y="12" text-anchor="middle" font-size="5" fill="rgba(255,255,255,0.2)" font-family="Montserrat">USB-C</text>
+    </g>
+
+    <!-- ===== LOGO FRONT ===== -->
+    <g transform="translate(-60, -170)">
+      <text x="0" y="0" font-size="7" font-weight="800" letter-spacing="2" fill="url(#goldGrad)" font-family="Montserrat" opacity="0.6">PERPETDUO</text>
+    </g>
+
+    <!-- ===== PANEL SEAM LINES ===== -->
+    <!-- Center front seam -->
+    <line x1="4" y1="-230" x2="4" y2="270" stroke="rgba(0,0,0,0.2)" stroke-width="0.5"/>
+
+    <!-- Side seam lines -->
+    <path d="M -170,-135 C -175,0 -175,150 -158,250" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="0.8"/>
+    <path d="M 175,-135 C 180,0 180,150 160,250" fill="none" stroke="rgba(0,0,0,0.1)" stroke-width="0.6"/>
+
+    <!-- Hem line -->
+    <path d="M -155,255 C -100,268 100,270 155,255" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="0.8"/>
+    <path d="M -152,258 C -100,271 100,273 152,258" fill="none" stroke="rgba(30,42,74,0.3)" stroke-width="0.5"/>
+
+    <!-- ===== ELASTIC BAND ATTACHMENT HINT ===== -->
+    <!-- Small elastic band coming from D-ring -->
+    <g transform="translate(-170, -90)" opacity="0.4">
+      <path d="M -10,0 C -20,5 -30,15 -25,30" fill="none" stroke="#444" stroke-width="1.5" stroke-dasharray="3,2"/>
+    </g>
+
+  </g>
+
+</svg>
+</div>
+
+<!-- Feature cards RIGHT -->
+<div class="features-right">
+  <div class="feature-card">
+    <div class="icon">&#9728;</div>
+    <h3>CHAUFFAGE CARBONE</h3>
+    <p>3 zones fibre de carbone<br>Poitrine · Dos · Lombaires<br>35°C / 45°C / 55°C — autonomie 6h</p>
+    <span class="tag">CARBON FIBER</span>
+  </div>
+  <div class="feature-card">
+    <div class="icon">&#9878;</div>
+    <h3>LESTE MODULAIRE</h3>
+    <p>Click-lock magnétique Neodyme N52<br>0.5 → 2 kg par côté<br>Poches latérales basses sécurisées</p>
+    <span class="tag">0.5 – 4 KG</span>
+  </div>
+  <div class="feature-card">
+    <div class="icon">&#8693;</div>
+    <h3>ÉLASTIQUES RÉSISTANCE</h3>
+    <p>4 D-rings dorés · Clips rapides<br>Bandes 5–25 kg interchangeables<br>Exercices haut et bas du corps</p>
+    <span class="tag">5 – 25 KG</span>
+  </div>
+  <div class="feature-card">
+    <div class="icon">&#9681;</div>
+    <h3>RÉFLÉCHISSANT 360°</h3>
+    <p>3M™ Scotchlite 20mm<br>Épaules · Côtés · Ourlet arrière<br>Visibilité nocturne complète</p>
+    <span class="tag">3M SCOTCHLITE</span>
+  </div>
+</div>
+
+<!-- Feature cards LEFT -->
+<div class="features-left">
+  <div class="feature-card">
+    <div class="icon">&#9889;</div>
+    <h3>BATTERIE 5000mAh</h3>
+    <p>USB-C charge rapide<br>IP54 résistant eau<br>Poche interne sécurisée</p>
+    <span class="tag">IP54</span>
+  </div>
+  <div class="feature-card">
+    <div class="icon">&#9730;</div>
+    <h3>K-WAY INTÉGRÉ</h3>
+    <p>Capuche repliable col arrière<br>Imperméable PU 5000mm<br>Rangement compact</p>
+    <span class="tag">PU 5000</span>
+  </div>
+</div>
+
+<!-- Specs bar -->
+<div class="specs-bar">
+  <div class="spec-item">
+    <div class="value">5 en 1</div>
+    <div class="label">FONCTIONS</div>
+  </div>
+  <div class="spec-item">
+    <div class="value">S → XXL</div>
+    <div class="label">TAILLES</div>
+  </div>
+  <div class="spec-item">
+    <div class="value">420g</div>
+    <div class="label">POIDS BASE</div>
+  </div>
+  <div class="spec-item">
+    <div class="value">IP54</div>
+    <div class="label">ÉTANCHÉITÉ</div>
+  </div>
+  <div class="spec-item">
+    <div class="value">YKK #5</div>
+    <div class="label">ZIP FRONTAL</div>
+  </div>
+  <div class="spec-item">
+    <div class="value">CE</div>
+    <div class="label">CERTIFIÉ</div>
+  </div>
+</div>
+
+<div class="watermark">ACTINESS MÉTHODE © 2026</div>
+
+<!-- Connection lines SVG overlay -->
+<svg class="lines-container" viewBox="0 0 1400 900" xmlns="http://www.w3.org/2000/svg">
+  <!-- Lines from features to vest parts -->
+  <!-- Heat zone line -->
+  <line x1="1095" y1="175" x2="520" y2="280" stroke="rgba(199,155,60,0.15)" stroke-width="0.5" stroke-dasharray="4,4"/>
+  <circle cx="520" cy="280" r="3" fill="rgba(230,120,30,0.4)"/>
+
+  <!-- Weight pocket line -->
+  <line x1="1095" y1="285" x2="500" y2="490" stroke="rgba(199,155,60,0.15)" stroke-width="0.5" stroke-dasharray="4,4"/>
+  <circle cx="500" cy="490" r="3" fill="rgba(199,155,60,0.3)"/>
+
+  <!-- D-ring line -->
+  <line x1="1095" y1="385" x2="455" y2="310" stroke="rgba(199,155,60,0.15)" stroke-width="0.5" stroke-dasharray="4,4"/>
+  <circle cx="455" cy="310" r="3" fill="rgba(199,155,60,0.3)"/>
+
+  <!-- Reflective line -->
+  <line x1="1095" y1="475" x2="475" y2="600" stroke="rgba(199,155,60,0.15)" stroke-width="0.5" stroke-dasharray="4,4"/>
+  <circle cx="475" cy="600" r="3" fill="rgba(200,200,210,0.3)"/>
+
+  <!-- Battery line (left) -->
+  <line x1="260" y1="380" x2="480" y2="560" stroke="rgba(199,155,60,0.15)" stroke-width="0.5" stroke-dasharray="4,4"/>
+  <circle cx="480" cy="560" r="3" fill="rgba(199,155,60,0.3)"/>
+
+  <!-- K-Way line (left) -->
+  <line x1="260" y1="470" x2="575" y2="170" stroke="rgba(199,155,60,0.15)" stroke-width="0.5" stroke-dasharray="4,4"/>
+  <circle cx="575" cy="170" r="3" fill="rgba(199,155,60,0.3)"/>
+</svg>
+
+</body>
+</html>

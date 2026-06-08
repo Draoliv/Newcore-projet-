@@ -1,0 +1,348 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900">
+  <defs>
+    <style>
+      .outline { fill: none; stroke: #1a2a4a; stroke-width: 2; stroke-linejoin: round; }
+      .stitch { fill: none; stroke: #1a2a4a; stroke-width: 1; stroke-dasharray: 4,3; }
+      .detail { fill: none; stroke: #1a2a4a; stroke-width: 1; }
+      .heating { fill: #c4922a; opacity: 0.15; stroke: #c4922a; stroke-width: 1; stroke-dasharray: 6,3; }
+      .reflect { fill: none; stroke: #b0b0b0; stroke-width: 4; opacity: 0.6; }
+      .label { font-family: Helvetica, Arial, sans-serif; font-size: 11px; fill: #1a2a4a; }
+      .label-bold { font-family: Helvetica, Arial, sans-serif; font-size: 13px; fill: #1a2a4a; font-weight: bold; }
+      .label-sm { font-family: Helvetica, Arial, sans-serif; font-size: 9px; fill: #666; }
+      .title { font-family: Helvetica, Arial, sans-serif; font-size: 22px; fill: #1a2a4a; font-weight: bold; letter-spacing: 3px; }
+      .subtitle { font-family: Helvetica, Arial, sans-serif; font-size: 12px; fill: #c4922a; }
+      .callout-line { stroke: #c4922a; stroke-width: 1; fill: none; }
+      .callout-dot { fill: #c4922a; }
+      .zip { stroke: #1a2a4a; stroke-width: 2.5; fill: none; }
+      .zip-teeth { stroke: #999; stroke-width: 1; fill: none; stroke-dasharray: 2,2; }
+      .pocket { fill: none; stroke: #1a2a4a; stroke-width: 1.5; }
+      .magnet { fill: #c4922a; opacity: 0.5; }
+      .collar-fill { fill: #e8ecf2; stroke: #1a2a4a; stroke-width: 2; }
+      .body-fill { fill: #f0f3f8; stroke: #1a2a4a; stroke-width: 2; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="900" fill="white"/>
+
+  <!-- Title -->
+  <text x="600" y="40" text-anchor="middle" class="title">PERPETDUO®</text>
+  <text x="600" y="58" text-anchor="middle" class="subtitle">PAR ACTINESS MÉTHODE — TECHNICAL FLAT SKETCH — GILET ZIP SPORT</text>
+  <line x1="100" y1="68" x2="1100" y2="68" stroke="#1a2a4a" stroke-width="1"/>
+
+  <!-- ==================== FRONT VIEW ==================== -->
+  <text x="250" y="95" text-anchor="middle" class="label-bold">FRONT VIEW</text>
+
+  <!-- Front vest body -->
+  <!-- Left shoulder -->
+  <path d="M 175,140 Q 175,120 200,115 L 240,108 Q 260,105 265,108" class="body-fill"/>
+  <!-- Right shoulder -->
+  <path d="M 325,140 Q 325,120 300,115 L 260,108 Q 255,105 250,108" class="body-fill"/>
+
+  <!-- Main front body -->
+  <path d="
+    M 175,140
+    L 175,135 Q 175,120 195,112 L 230,105 Q 250,100 270,105 L 305,112 Q 325,120 325,135
+    L 325,140
+    Q 330,145 332,160
+    L 335,200
+    L 335,350
+    Q 335,380 330,400
+    L 325,420
+    Q 315,440 310,450
+    L 305,460
+    Q 290,470 250,475
+    Q 210,470 195,460
+    L 190,450
+    Q 185,440 175,420
+    L 170,400
+    Q 165,380 165,350
+    L 165,200
+    L 168,160
+    Q 170,145 175,140
+    Z
+  " class="body-fill"/>
+
+  <!-- Stand-up collar -->
+  <path d="M 200,115 Q 210,100 250,97 Q 290,100 300,115" class="collar-fill"/>
+  <path d="M 200,115 Q 210,108 250,105 Q 290,108 300,115" class="detail"/>
+
+  <!-- Armholes -->
+  <path d="M 175,140 Q 160,160 158,190 L 165,200" class="outline" stroke-width="2"/>
+  <path d="M 325,140 Q 340,160 342,190 L 335,200" class="outline" stroke-width="2"/>
+
+  <!-- Front center zipper -->
+  <line x1="250" y1="105" x2="250" y2="470" class="zip"/>
+  <line x1="248" y1="110" x2="248" y2="465" class="zip-teeth"/>
+  <line x1="252" y1="110" x2="252" y2="465" class="zip-teeth"/>
+  <!-- Zipper pull -->
+  <rect x="244" y="130" width="12" height="18" rx="3" fill="#c4922a" stroke="#1a2a4a" stroke-width="1"/>
+  <circle cx="250" cy="150" r="2" fill="#1a2a4a"/>
+
+  <!-- Heating Zone 1 - Chest (left panel) -->
+  <rect x="185" y="170" width="55" height="70" rx="8" class="heating"/>
+  <text x="212" y="210" text-anchor="middle" class="label-sm">ZONE 1</text>
+
+  <!-- Heating Zone 1 - Chest (right panel) -->
+  <rect x="260" y="170" width="55" height="70" rx="8" class="heating"/>
+  <text x="287" y="210" text-anchor="middle" class="label-sm">ZONE 1</text>
+
+  <!-- Weight pocket LEFT -->
+  <rect x="172" y="300" width="40" height="55" rx="5" class="pocket"/>
+  <!-- Magnets -->
+  <circle cx="180" cy="308" r="3" class="magnet"/>
+  <circle cx="204" cy="308" r="3" class="magnet"/>
+  <circle cx="180" cy="347" r="3" class="magnet"/>
+  <circle cx="204" cy="347" r="3" class="magnet"/>
+  <text x="192" y="332" text-anchor="middle" class="label-sm">WT</text>
+
+  <!-- Weight pocket RIGHT -->
+  <rect x="288" y="300" width="40" height="55" rx="5" class="pocket"/>
+  <circle cx="296" cy="308" r="3" class="magnet"/>
+  <circle cx="320" cy="308" r="3" class="magnet"/>
+  <circle cx="296" cy="347" r="3" class="magnet"/>
+  <circle cx="320" cy="347" r="3" class="magnet"/>
+  <text x="308" y="332" text-anchor="middle" class="label-sm">WT</text>
+
+  <!-- Battery pocket (interior, shown dashed) -->
+  <rect x="195" y="385" width="35" height="45" rx="4" stroke="#1a2a4a" stroke-width="1" stroke-dasharray="3,2" fill="none"/>
+  <text x="212" y="412" text-anchor="middle" class="label-sm">BATT</text>
+
+  <!-- USB-C port -->
+  <rect x="190" y="425" width="12" height="6" rx="2" fill="#1a2a4a"/>
+
+  <!-- Elastic D-ring attachment points -->
+  <circle cx="162" cy="260" r="5" fill="none" stroke="#c4922a" stroke-width="2"/>
+  <circle cx="162" cy="340" r="5" fill="none" stroke="#c4922a" stroke-width="2"/>
+  <circle cx="338" cy="260" r="5" fill="none" stroke="#c4922a" stroke-width="2"/>
+  <circle cx="338" cy="340" r="5" fill="none" stroke="#c4922a" stroke-width="2"/>
+
+  <!-- Reflective strips front -->
+  <line x1="170" y1="140" x2="170" y2="420" class="reflect"/>
+  <line x1="330" y1="140" x2="330" y2="420" class="reflect"/>
+
+  <!-- Logo placement -->
+  <text x="280" y="155" class="label-sm" fill="#c4922a">PERPETDUO®</text>
+
+  <!-- Hem ribbing -->
+  <path d="M 195,460 Q 250,475 305,460" class="stitch"/>
+
+  <!-- ==================== BACK VIEW ==================== -->
+  <text x="750" y="95" text-anchor="middle" class="label-bold">BACK VIEW</text>
+
+  <!-- Back vest body -->
+  <path d="
+    M 675,140
+    L 675,135 Q 675,120 695,112 L 730,105 Q 750,100 770,105 L 805,112 Q 825,120 825,135
+    L 825,140
+    Q 830,145 832,160
+    L 835,200
+    L 835,350
+    Q 835,380 830,400
+    L 825,420
+    Q 815,440 810,450
+    L 805,460
+    Q 790,470 750,475
+    Q 710,470 695,460
+    L 690,450
+    Q 685,440 675,420
+    L 670,400
+    Q 665,380 665,350
+    L 665,200
+    L 668,160
+    Q 670,145 675,140
+    Z
+  " class="body-fill"/>
+
+  <!-- Back collar -->
+  <path d="M 700,115 Q 710,100 750,97 Q 790,100 800,115" class="collar-fill"/>
+  <path d="M 700,115 Q 710,108 750,105 Q 790,108 800,115" class="detail"/>
+  <!-- Collar label -->
+  <text x="750" y="112" text-anchor="middle" style="font-size:7px; fill:#999;">ACTINESS</text>
+
+  <!-- Armholes back -->
+  <path d="M 675,140 Q 660,160 658,190 L 665,200" class="outline" stroke-width="2"/>
+  <path d="M 825,140 Q 840,160 842,190 L 835,200" class="outline" stroke-width="2"/>
+
+  <!-- Heating Zone 2 - Upper Back -->
+  <rect x="700" y="150" width="100" height="85" rx="10" class="heating"/>
+  <text x="750" y="195" text-anchor="middle" class="label-sm">HEATING ZONE 2</text>
+  <text x="750" y="207" text-anchor="middle" class="label-sm">(UPPER BACK)</text>
+
+  <!-- Hood pocket -->
+  <rect x="710" y="265" width="80" height="40" rx="6" class="pocket"/>
+  <path d="M 720,285 L 780,285" class="stitch"/>
+  <text x="750" y="290" text-anchor="middle" class="label-sm">HOOD POCKET</text>
+  <!-- YKK zip on hood pocket -->
+  <line x1="750" y1="265" x2="750" y2="305" stroke="#999" stroke-width="1" stroke-dasharray="2,1"/>
+
+  <!-- Heating Zone 3 - Lumbar -->
+  <rect x="700" y="330" width="100" height="65" rx="10" class="heating"/>
+  <text x="750" y="365" text-anchor="middle" class="label-sm">HEATING ZONE 3</text>
+  <text x="750" y="377" text-anchor="middle" class="label-sm">(LUMBAR)</text>
+
+  <!-- Reflective strips back -->
+  <line x1="670" y1="140" x2="670" y2="420" class="reflect"/>
+  <line x1="830" y1="140" x2="830" y2="420" class="reflect"/>
+  <!-- Reflective strip bottom -->
+  <path d="M 695,455 Q 750,468 805,455" stroke="#b0b0b0" stroke-width="4" fill="none" opacity="0.6"/>
+
+  <!-- Back logo -->
+  <text x="750" y="430" text-anchor="middle" style="font-size:14px; fill:#c4922a; font-weight:bold; letter-spacing:2px;">ACTINESS</text>
+  <text x="750" y="445" text-anchor="middle" style="font-size:9px; fill:#999; letter-spacing:1px;">MÉTHODE</text>
+
+  <!-- Elastic D-rings back -->
+  <circle cx="662" cy="260" r="5" fill="none" stroke="#c4922a" stroke-width="2"/>
+  <circle cx="662" cy="340" r="5" fill="none" stroke="#c4922a" stroke-width="2"/>
+  <circle cx="838" cy="260" r="5" fill="none" stroke="#c4922a" stroke-width="2"/>
+  <circle cx="838" cy="340" r="5" fill="none" stroke="#c4922a" stroke-width="2"/>
+
+  <!-- ==================== CALLOUTS ==================== -->
+
+  <!-- Front callouts -->
+  <!-- Zipper -->
+  <circle cx="250" cy="200" r="3" class="callout-dot"/>
+  <path d="M 250,200 L 80,180" class="callout-line"/>
+  <text x="75" y="177" text-anchor="end" class="label">Full-length YKK #5</text>
+  <text x="75" y="190" text-anchor="end" class="label-sm">Vislon, two-way, auto-lock</text>
+  <text x="75" y="201" text-anchor="end" class="label-sm">Gold zipper pull</text>
+
+  <!-- Collar -->
+  <circle cx="250" cy="100" r="3" class="callout-dot"/>
+  <path d="M 250,100 L 100,88" class="callout-line"/>
+  <text x="95" y="85" text-anchor="end" class="label">Stand-up collar</text>
+  <text x="95" y="96" text-anchor="end" class="label-sm">5-6cm height</text>
+
+  <!-- Weight pocket -->
+  <circle cx="172" cy="327" r="3" class="callout-dot"/>
+  <path d="M 172,327 L 72,310" class="callout-line"/>
+  <text x="67" y="307" text-anchor="end" class="label">Weight pockets ×2</text>
+  <text x="67" y="318" text-anchor="end" class="label-sm">Magnetic N52 click-lock</text>
+  <text x="67" y="329" text-anchor="end" class="label-sm">0.5 → 2 kg inserts</text>
+
+  <!-- Elastic points -->
+  <circle cx="338" cy="260" r="3" class="callout-dot"/>
+  <path d="M 338,260 L 430,240" class="callout-line"/>
+  <text x="435" y="237" class="label">D-ring clips ×4</text>
+  <text x="435" y="248" class="label-sm">Elastic band attachment</text>
+  <text x="435" y="259" class="label-sm">Quick-release carabiner</text>
+
+  <!-- Battery -->
+  <circle cx="196" cy="430" r="3" class="callout-dot"/>
+  <path d="M 196,430 L 72,440" class="callout-line"/>
+  <text x="67" y="437" text-anchor="end" class="label">Battery pocket IP54</text>
+  <text x="67" y="448" text-anchor="end" class="label-sm">5000mAh USB-C</text>
+  <text x="67" y="459" text-anchor="end" class="label-sm">3-level heat control</text>
+
+  <!-- Reflective -->
+  <circle cx="330" cy="380" r="3" class="callout-dot"/>
+  <path d="M 330,380 L 430,390" class="callout-line"/>
+  <text x="435" y="387" class="label">Reflective tape 360°</text>
+  <text x="435" y="398" class="label-sm">3M Scotchlite 20mm</text>
+
+  <!-- Heating -->
+  <circle cx="287" cy="190" r="3" class="callout-dot"/>
+  <path d="M 287,190 L 430,170" class="callout-line"/>
+  <text x="435" y="167" class="label">Heating zones ×3</text>
+  <text x="435" y="178" class="label-sm">Carbon fiber wire</text>
+  <text x="435" y="189" class="label-sm">35°C / 45°C / 55°C</text>
+
+  <!-- Back callouts -->
+  <!-- Hood -->
+  <circle cx="790" cy="285" r="3" class="callout-dot"/>
+  <path d="M 790,285 L 920,270" class="callout-line"/>
+  <text x="925" y="267" class="label">Stow-away K-Way</text>
+  <text x="925" y="278" class="label-sm">Nylon ripstop 20D, ~90g</text>
+  <text x="925" y="289" class="label-sm">Adjustable hood + drawstring</text>
+
+  <!-- Lumbar zone -->
+  <circle cx="700" cy="362" r="3" class="callout-dot"/>
+  <path d="M 700,362 L 580,370" class="callout-line"/>
+  <text x="575" y="367" text-anchor="end" class="label">Lumbar heating</text>
+  <text x="575" y="378" text-anchor="end" class="label-sm">15×20cm zone</text>
+
+  <!-- Upper back zone -->
+  <circle cx="700" cy="180" r="3" class="callout-dot"/>
+  <path d="M 700,180 L 580,165" class="callout-line"/>
+  <text x="575" y="162" text-anchor="end" class="label">Upper back heating</text>
+  <text x="575" y="173" text-anchor="end" class="label-sm">20×25cm zone</text>
+
+  <!-- Reflective back bottom -->
+  <circle cx="750" cy="462" r="3" class="callout-dot"/>
+  <path d="M 750,462 L 920,470" class="callout-line"/>
+  <text x="925" y="467" class="label">Reflective strip</text>
+  <text x="925" y="478" class="label-sm">Lower back, 360° visibility</text>
+
+  <!-- ==================== SPECS TABLE ==================== -->
+  <line x1="100" y1="510" x2="1100" y2="510" stroke="#1a2a4a" stroke-width="1"/>
+
+  <!-- Left column specs -->
+  <text x="120" y="540" class="label-bold">KEY SPECIFICATIONS</text>
+
+  <text x="120" y="565" class="label" fill="#c4922a">FABRIC:</text>
+  <text x="220" y="565" class="label">Ripstop Nylon 70D, DWR C0, 85 g/m²</text>
+
+  <text x="120" y="585" class="label" fill="#c4922a">LINING:</text>
+  <text x="220" y="585" class="label">Polyester mesh 100D, moisture-wicking</text>
+
+  <text x="120" y="605" class="label" fill="#c4922a">WEIGHT (empty):</text>
+  <text x="220" y="605" class="label">~450g</text>
+
+  <text x="120" y="625" class="label" fill="#c4922a">MAX LOAD:</text>
+  <text x="220" y="625" class="label">4 kg (2×2 kg)</text>
+
+  <text x="120" y="645" class="label" fill="#c4922a">HEATING:</text>
+  <text x="220" y="645" class="label">2-3h autonomy, 3 zones carbon fiber</text>
+
+  <text x="120" y="665" class="label" fill="#c4922a">BATTERY:</text>
+  <text x="220" y="665" class="label">5000 mAh USB-C, IP54</text>
+
+  <text x="120" y="685" class="label" fill="#c4922a">ZIPPER:</text>
+  <text x="220" y="685" class="label">YKK Vislon #5, two-way, auto-lock</text>
+
+  <!-- Right column specs -->
+  <text x="600" y="540" class="label-bold">DESIGN INTENT</text>
+
+  <text x="600" y="565" class="label" fill="#c4922a">SILHOUETTE:</text>
+  <text x="720" y="565" class="label">Slim-fit athletic zip-up vest</text>
+
+  <text x="600" y="585" class="label" fill="#c4922a">REFERENCE:</text>
+  <text x="720" y="585" class="label">Salomon ADV Skin / Nike Therma-FIT</text>
+
+  <text x="600" y="605" class="label" fill="#c4922a">STYLE:</text>
+  <text x="720" y="605" class="label">Modern, sporty, NOT tactical</text>
+
+  <text x="600" y="625" class="label" fill="#c4922a">FIT:</text>
+  <text x="720" y="625" class="label">Regular-to-slim, unisex</text>
+
+  <text x="600" y="645" class="label" fill="#c4922a">SIZES:</text>
+  <text x="720" y="645" class="label">S · M · L · XL · XXL</text>
+
+  <text x="600" y="665" class="label" fill="#c4922a">WASH:</text>
+  <text x="720" y="665" class="label">Machine wash (remove electronics)</text>
+
+  <text x="600" y="685" class="label" fill="#c4922a">COLORS:</text>
+  <!-- Color swatches -->
+  <rect x="720" y="675" width="16" height="16" rx="2" fill="#1a2a4a" stroke="#999" stroke-width="0.5"/>
+  <text x="740" y="687" class="label-sm">Navy Blue</text>
+  <rect x="790" y="675" width="16" height="16" rx="2" fill="#c4922a" stroke="#999" stroke-width="0.5"/>
+  <text x="810" y="687" class="label-sm">Amber Gold</text>
+  <rect x="870" y="675" width="16" height="16" rx="2" fill="#c0c0c0" stroke="#999" stroke-width="0.5"/>
+  <text x="890" y="687" class="label-sm">Silver</text>
+
+  <!-- Footer -->
+  <line x1="100" y1="710" x2="1100" y2="710" stroke="#1a2a4a" stroke-width="0.5"/>
+  <text x="600" y="730" text-anchor="middle" class="label-sm">PERPETDUO® PAR ACTINESS MÉTHODE — CONFIDENTIAL — TECH PACK V1.0 — JUNE 2026</text>
+  <text x="600" y="745" text-anchor="middle" class="label-sm">Style: ACT-PD-001 · Season: AW26/SS27 · "5 fonctions. 1 gilet. 0 excuse."</text>
+
+  <!-- Legend -->
+  <text x="120" y="780" class="label-sm">LEGEND:</text>
+  <rect x="180" y="770" width="20" height="12" rx="2" fill="#c4922a" opacity="0.15" stroke="#c4922a" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="205" y="780" class="label-sm">Heating zone</text>
+  <line x1="270" y1="776" x2="290" y2="776" stroke="#b0b0b0" stroke-width="4" opacity="0.6"/>
+  <text x="295" y="780" class="label-sm">Reflective tape</text>
+  <circle cx="370" cy="776" r="5" fill="none" stroke="#c4922a" stroke-width="2"/>
+  <text x="380" y="780" class="label-sm">D-ring attachment</text>
+  <circle cx="460" cy="776" r="3" fill="#c4922a" opacity="0.5"/>
+  <text x="468" y="780" class="label-sm">Magnetic closure</text>
+</svg>
