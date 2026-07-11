@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Info Retraite : comprendre le système de retraite français, connaître son âge de départ, estimer sa pension et préparer ses démarches." />
+  <title>Info Retraite — Comprendre et préparer sa retraite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- ==================== HEADER ==================== -->
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a href="#top" class="logo" aria-label="Accueil Info Retraite">
+        <span class="logo-mark">IR</span>
+        <span class="logo-text">Info<strong>Retraite</strong></span>
+      </a>
+      <nav class="main-nav" aria-label="Navigation principale">
+        <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="#comprendre">Comprendre</a></li>
+          <li><a href="#age">Âge de départ</a></li>
+          <li><a href="#simulateur">Simulateur</a></li>
+          <li><a href="#demarches">Démarches</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#simulateur" class="btn btn-nav">Estimer ma retraite</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <p class="eyebrow">Votre guide de la retraite</p>
+        <h1>Comprenez, anticipez et préparez votre retraite en toute sérénité</h1>
+        <p class="lead">
+          Le système de retraite français peut sembler complexe. Info Retraite vous aide à
+          y voir clair : âge de départ, calcul de la pension, régimes, démarches… tout est ici.
+        </p>
+        <div class="hero-actions">
+          <a href="#simulateur" class="btn btn-primary">Estimer mon âge de départ</a>
+          <a href="#comprendre" class="btn btn-ghost">Comprendre le système</a>
+        </div>
+        <ul class="hero-stats">
+          <li><strong>64 ans</strong><span>âge légal (né après 1968)</span></li>
+          <li><strong>172 trim.</strong><span>pour le taux plein</span></li>
+          <li><strong>3 piliers</strong><span>de base, complémentaire, épargne</span></li>
+        </ul>
+      </div>
+      <div class="hero-card" aria-hidden="true">
+        <div class="mini-widget">
+          <p class="mini-label">Ma retraite en un coup d'œil</p>
+          <div class="mini-row"><span>Âge légal</span><b>64 ans</b></div>
+          <div class="mini-row"><span>Trimestres requis</span><b>172</b></div>
+          <div class="mini-row"><span>Taux plein automatique</span><b>67 ans</b></div>
+          <div class="mini-bar"><div class="mini-fill"></div></div>
+          <p class="mini-note">Estimation indicative selon la réforme 2023.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== COMPRENDRE ==================== -->
+  <section class="section" id="comprendre">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Les fondamentaux</p>
+        <h2>Comprendre le système de retraite</h2>
+        <p class="section-sub">La retraite française repose sur la répartition : les cotisations d'aujourd'hui financent les pensions d'aujourd'hui.</p>
+      </div>
+      <div class="cards-grid">
+        <article class="card">
+          <div class="card-icon">🏛️</div>
+          <h3>Le régime de base</h3>
+          <p>Obligatoire, il constitue le socle de votre pension. Pour la plupart des salariés, c'est le régime général géré par l'Assurance retraite (Cnav).</p>
+        </article>
+        <article class="card">
+          <div class="card-icon">➕</div>
+          <h3>La retraite complémentaire</h3>
+          <p>Elle s'ajoute au régime de base. Pour les salariés du privé, il s'agit de l'Agirc-Arrco, qui fonctionne par points.</p>
+        </article>
+        <article class="card">
+          <div class="card-icon">💰</div>
+          <h3>L'épargne retraite</h3>
+          <p>Facultative, elle permet de compléter ses revenus. Le Plan d'Épargne Retraite (PER) est le dispositif le plus courant.</p>
+        </article>
+        <article class="card">
+          <div class="card-icon">📊</div>
+          <h3>Les trimestres</h3>
+          <p>Votre durée d'assurance se compte en trimestres. Il faut en valider un certain nombre (172 pour les générations récentes) pour le taux plein.</p>
+        </article>
+        <article class="card">
+          <div class="card-icon">🎯</div>
+          <h3>Le taux plein</h3>
+          <p>C'est le taux maximal de calcul (50 % du salaire annuel moyen au régime général). Sans lui, une décote s'applique.</p>
+        </article>
+        <article class="card">
+          <div class="card-icon">📉</div>
+          <h3>Décote & surcote</h3>
+          <p>Partir sans le taux plein réduit la pension (décote). Continuer au-delà l'augmente (surcote de 1,25 % par trimestre supplémentaire).</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ÂGE DE DÉPART ==================== -->
+  <section class="section section-alt" id="age">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Réforme 2023</p>
+        <h2>À quel âge puis-je partir ?</h2>
+        <p class="section-sub">Depuis la réforme, l'âge légal de départ augmente progressivement pour atteindre 64 ans.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr><th>Année de naissance</th><th>Âge légal de départ</th><th>Trimestres requis (taux plein)</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1960</td><td>62 ans</td><td>167</td></tr>
+            <tr><td>1961 (avant sept.)</td><td>62 ans</td><td>168</td></tr>
+            <tr><td>1961 (après sept.) – 1962</td><td>62 ans et 3 mois</td><td>169</td></tr>
+            <tr><td>1963</td><td>62 ans et 6 mois</td><td>170</td></tr>
+            <tr><td>1964</td><td>62 ans et 9 mois</td><td>171</td></tr>
+            <tr><td>1965 – 1967</td><td>63 ans et +</td><td>172</td></tr>
+            <tr><td>1968 et après</td><td>64 ans</td><td>172</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">💡 L'âge du <strong>taux plein automatique</strong> reste fixé à <strong>67 ans</strong>, quel que soit le nombre de trimestres cotisés.</p>
+    </div>
+  </section>
+
+  <!-- ==================== SIMULATEUR ==================== -->
+  <section class="section" id="simulateur">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Outil interactif</p>
+        <h2>Simulateur d'âge de départ</h2>
+        <p class="section-sub">Estimez votre âge légal, vos trimestres requis et une fourchette indicative de pension.</p>
+      </div>
+
+      <div class="sim-layout">
+        <form class="sim-form" id="simForm" novalidate>
+          <div class="field">
+            <label for="birthYear">Année de naissance</label>
+            <input type="number" id="birthYear" min="1940" max="2005" placeholder="ex. 1985" required />
+          </div>
+          <div class="field">
+            <label for="startAge">Âge de début d'activité</label>
+            <input type="number" id="startAge" min="14" max="40" placeholder="ex. 22" required />
+          </div>
+          <div class="field">
+            <label for="salary">Salaire annuel brut moyen (€)</label>
+            <input type="number" id="salary" min="0" step="500" placeholder="ex. 32000" required />
+          </div>
+          <div class="field">
+            <label for="status">Statut</label>
+            <select id="status">
+              <option value="prive">Salarié du privé</option>
+              <option value="public">Fonctionnaire</option>
+              <option value="independant">Indépendant</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Calculer mon estimation</button>
+          <p class="sim-disclaimer">Estimation simplifiée à titre informatif — sans valeur officielle.</p>
+        </form>
+
+        <div class="sim-result" id="simResult" aria-live="polite">
+          <div class="sim-placeholder" id="simPlaceholder">
+            <div class="sim-placeholder-icon">🧮</div>
+            <p>Remplissez le formulaire pour découvrir votre estimation personnalisée.</p>
+          </div>
+          <div class="sim-output" id="simOutput" hidden>
+            <div class="result-grid">
+              <div class="result-item">
+                <span class="result-label">Âge légal de départ</span>
+                <span class="result-value" id="resLegalAge">—</span>
+              </div>
+              <div class="result-item">
+                <span class="result-label">Trimestres requis</span>
+                <span class="result-value" id="resTrimesters">—</span>
+              </div>
+              <div class="result-item">
+                <span class="result-label">Année de départ estimée</span>
+                <span class="result-value" id="resYear">—</span>
+              </div>
+              <div class="result-item highlight">
+                <span class="result-label">Pension mensuelle estimée</span>
+                <span class="result-value" id="resPension">—</span>
+              </div>
+            </div>
+            <p class="result-message" id="resMessage"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== DÉMARCHES ==================== -->
+  <section class="section section-alt" id="demarches">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Passer à l'action</p>
+        <h2>Les démarches, étape par étape</h2>
+        <p class="section-sub">Bien préparée, la demande de retraite se déroule sereinement. Voici le parcours type.</p>
+      </div>
+      <ol class="steps">
+        <li class="step">
+          <span class="step-num">1</span>
+          <div>
+            <h3>Vérifiez votre relevé de carrière</h3>
+            <p>Consultez votre relevé sur <em>info-retraite.fr</em> et signalez toute erreur ou trimestre manquant le plus tôt possible.</p>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-num">2</span>
+          <div>
+            <h3>Estimez votre pension</h3>
+            <p>Utilisez le simulateur officiel M@rel ou notre outil pour choisir la meilleure date de départ.</p>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-num">3</span>
+          <div>
+            <h3>Faites votre demande unique</h3>
+            <p>Une seule demande en ligne, 4 à 6 mois avant la date souhaitée, suffit pour tous vos régimes.</p>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-num">4</span>
+          <div>
+            <h3>Rassemblez vos justificatifs</h3>
+            <p>Pièce d'identité, RIB, derniers bulletins de salaire, attestations… préparez-les à l'avance.</p>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-num">5</span>
+          <div>
+            <h3>Suivez votre dossier</h3>
+            <p>Le premier versement intervient généralement le mois suivant votre départ. Suivez l'avancement en ligne.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ==================== FAQ ==================== -->
+  <section class="section" id="faq">
+    <div class="container narrow">
+      <div class="section-head">
+        <p class="eyebrow">Questions fréquentes</p>
+        <h2>Vos questions sur la retraite</h2>
+      </div>
+      <div class="faq-list" id="faqList">
+        <details class="faq-item">
+          <summary>Qu'est-ce qu'un trimestre de retraite ?</summary>
+          <p>Un trimestre est l'unité de mesure de votre durée d'assurance. En 2024, il faut cotiser sur un revenu d'au moins 1 747,50 € pour valider un trimestre, dans la limite de 4 par an.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Quelle différence entre âge légal et taux plein ?</summary>
+          <p>L'âge légal (jusqu'à 64 ans) est l'âge minimum pour partir. Le taux plein dépend du nombre de trimestres. Si vous ne l'avez pas, une décote réduit votre pension jusqu'à l'âge du taux plein automatique (67 ans).</p>
+        </details>
+        <details class="faq-item">
+          <summary>Puis-je partir avant l'âge légal ?</summary>
+          <p>Oui, sous conditions : carrière longue (début d'activité précoce), handicap, incapacité permanente ou pénibilité peuvent ouvrir un départ anticipé.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Comment est calculée ma pension de base ?</summary>
+          <p>Au régime général : Salaire annuel moyen (25 meilleures années) × Taux (50 % au maximum) × (trimestres cotisés / trimestres requis).</p>
+        </details>
+        <details class="faq-item">
+          <summary>Qu'est-ce que la surcote ?</summary>
+          <p>Si vous continuez à travailler après avoir atteint le taux plein, votre pension est majorée de 1,25 % par trimestre supplémentaire, soit 5 % par an.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Le cumul emploi-retraite est-il possible ?</summary>
+          <p>Oui. Vous pouvez reprendre une activité tout en percevant votre retraite. Depuis 2023, cette activité peut même générer de nouveaux droits sous conditions.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CTA ==================== -->
+  <section class="cta">
+    <div class="container cta-inner">
+      <h2>Prêt à préparer votre retraite ?</h2>
+      <p>Commencez par estimer votre âge de départ, puis vérifiez votre relevé de carrière officiel.</p>
+      <a href="#simulateur" class="btn btn-light">Lancer le simulateur</a>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="logo-mark">IR</span>
+        <p>Info<strong>Retraite</strong> — votre guide indépendant pour comprendre et préparer votre retraite.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Liens de bas de page">
+        <div>
+          <h4>Ressources</h4>
+          <a href="#comprendre">Comprendre le système</a>
+          <a href="#age">Âge de départ</a>
+          <a href="#simulateur">Simulateur</a>
+        </div>
+        <div>
+          <h4>Démarches</h4>
+          <a href="#demarches">Faire sa demande</a>
+          <a href="#faq">FAQ</a>
+        </div>
+        <div>
+          <h4>Officiel</h4>
+          <a href="https://www.info-retraite.fr" target="_blank" rel="noopener">info-retraite.fr</a>
+          <a href="https://www.lassuranceretraite.fr" target="_blank" rel="noopener">L'Assurance retraite</a>
+        </div>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>© <span id="year"></span> Info Retraite — Site informatif. Les données sont indicatives et n'ont pas de valeur officielle.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
