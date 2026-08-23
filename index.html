@@ -147,6 +147,10 @@
   }
   .sound p b{color:var(--paper);font-weight:700}
   .sound p.warn{color:#FFC46B}
+  .diag{
+    display:block;margin-top:.5rem;font-family:var(--mono);font-size:.62rem;
+    letter-spacing:.06em;color:var(--paper-faint);
+  }
   .sound ol{margin:.4rem 0 0;padding-left:1.1rem;font-size:.74rem;line-height:1.6;color:var(--paper-dim)}
 
   /* ---------- réglages ---------- */
@@ -540,32 +544,58 @@
     return fallback.play();
   }
 
-  testBtn.addEventListener("click",function(){
-    var ok=false;
-    try{
-      var c=audio();
-      beep(c.currentTime+0.05,1500,0.09,0.75);
-      beep(c.currentTime+0.35,1250,0.55,1);
-      ok=(c.state==="running");
-    }catch(e){ ok=false; }
+  /* Diagnostic : l'app dit elle-même ce qui bloque, au lieu de rester muette. */
+  var framed=(function(){ try{ return window.self!==window.top; }catch(e){ return true; } })();
 
-    if(ok){
-      sndStatus.className="";
-      sndStatus.innerHTML="Bip envoyé à <b>pleine puissance</b>. Rien entendu ?"+
-        "<ol><li>Bouton latéral de l'iPhone sur <b>sonnerie</b>, pas silencieux.</li>"+
-        "<li>Volume au maximum avec les boutons +.</li>"+
-        "<li>Aucun casque ni enceinte Bluetooth connecté.</li></ol>";
-    }else{
-      sndStatus.className="warn";
-      sndStatus.textContent="Ce navigateur bloque le moteur audio. Essai avec le lecteur de secours…";
-      playFallback().then(function(){
-        sndStatus.className="";
-        sndStatus.textContent="Le lecteur de secours fonctionne. Ouvrez la page directement dans Safari pour les bips les plus puissants.";
-      }).catch(function(){
-        sndStatus.className="warn";
-        sndStatus.textContent="Aucun son possible ici. Ouvrez la page dans Safari, hors mode silencieux.";
-      });
+  function say(cls,html){ sndStatus.className=cls; sndStatus.innerHTML=html; }
+
+  function diag(extra){
+    var bits=[];
+    bits.push("moteur : "+(ctx?ctx.state:"non créé"));
+    bits.push(framed?"page dans un cadre":"page en plein écran");
+    if(extra) bits.push(extra);
+    return '<span class="diag">'+bits.join(" · ")+"</span>";
+  }
+
+  if(framed){
+    say("warn","<b>Cette page est affichée dans un cadre.</b> Beaucoup de navigateurs y coupent tout son. "+
+      "Appuyez sur Tester : si rien ne sort, ouvrez la page en plein écran ou dans Safari.");
+  }
+
+  testBtn.addEventListener("click",function(){
+    var c=null,err="";
+    try{ c=audio(); }catch(e){ err=e.message||String(e); }
+
+    if(c){
+      try{
+        beep(c.currentTime+0.05,1500,0.09,0.75);
+        beep(c.currentTime+0.35,1250,0.55,1);
+      }catch(e){ err=e.message||String(e); }
     }
+
+    // Le lecteur de secours part en parallèle : deux chemins sonores valent
+    // mieux qu'un quand on ne sait pas lequel est bloqué.
+    var fb=null;
+    try{ fb=playFallback(); }catch(e){ fb=Promise.reject(e); }
+
+    Promise.resolve(fb).then(function(){
+      var running=c&&c.state==="running";
+      if(running){
+        say("","Bip envoyé à <b>pleine puissance</b>. Rien entendu ?"+
+          "<ol><li>Bouton latéral de l'iPhone sur <b>sonnerie</b>, pas silencieux.</li>"+
+          "<li>Volume au maximum avec les boutons +, pendant que le bip joue.</li>"+
+          "<li>Aucun casque ni enceinte Bluetooth connecté.</li>"+
+          (framed?"<li>Ouvrez la page en <b>plein écran</b> ou dans Safari.</li>":"")+
+          "</ol>"+diag());
+      }else{
+        say("","Le lecteur de secours a démarré. Si vous n'entendez toujours rien, "+
+          "le <b>mode silencieux</b> de l'iPhone est actif."+diag("Web Audio bloqué"));
+      }
+    }).catch(function(e){
+      say("warn","<b>Le son est bloqué ici</b>, les deux moteurs sont refusés. "+
+        "Ouvrez la page en plein écran ou dans Safari."+
+        diag((err||e&&e.name||"refus")));
+    });
   });
   [slowEl,fastEl,cycEl].forEach(function(el){
     el.addEventListener("change",function(){ if(!running) reset(); });
