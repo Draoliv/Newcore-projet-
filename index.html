@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#16233F">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+<!--ARTIFACT-START-->
+<title>Marche Japonaise 30</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap">
+<style>
+  :root{
+    --ai-900:#16233F;
+    --ai-700:#1E3363;
+    --shu:#D9401F;
+    --shu-900:#5E1508;
+    --paper:#F2F0EA;
+    --paper-dim:rgba(242,240,234,.62);
+    --paper-faint:rgba(242,240,234,.28);
+    --ground:var(--ai-900);
+    --ink:var(--paper);
+    --accent:var(--paper);
+    --pad:clamp(1rem,4vw,2.25rem);
+    --display:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",system-ui,sans-serif;
+    --mono:"Chivo Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  }
+
+  *,*::before,*::after{box-sizing:border-box}
+
+  body{
+    margin:0;
+    background:var(--ai-900);
+    color:var(--paper);
+    font-family:var(--display);
+    -webkit-font-smoothing:antialiased;
+    overscroll-behavior:none;
+    -webkit-text-size-adjust:100%;
+    -webkit-tap-highlight-color:transparent;
+    -webkit-touch-callout:none;
+    user-select:none;-webkit-user-select:none;
+    touch-action:manipulation; /* pas de zoom au double-tap pendant la marche */
+  }
+  input{user-select:text;-webkit-user-select:text;font-size:16px} /* 16px : Safari iOS ne zoome pas au focus */
+
+  .stage{
+    min-height:100vh;
+    min-height:100dvh;
+    padding:calc(var(--pad) + env(safe-area-inset-top)) var(--pad) calc(var(--pad) + env(safe-area-inset-bottom));
+    display:flex;
+    flex-direction:column;
+    gap:clamp(.75rem,2.5vh,1.5rem);
+    background:var(--ground);
+    transition:background-color .45s cubic-bezier(.4,0,.2,1);
+  }
+  .stage[data-phase="slow"]{--ground:var(--ai-900)}
+  .stage[data-phase="fast"]{--ground:var(--shu-900)}
+  .stage[data-phase="done"]{--ground:#123B2E}
+
+  /* ---------- en-tête ---------- */
+  .top{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+  .brand{font-size:clamp(.95rem,3.4vw,1.15rem);font-weight:700;letter-spacing:.02em;margin:0}
+  .brand span{display:block;font-weight:400;font-size:.72em;color:var(--paper-dim);letter-spacing:.06em}
+  .total{
+    font-family:var(--mono);font-size:clamp(.8rem,3vw,.95rem);
+    color:var(--paper-dim);font-variant-numeric:tabular-nums;letter-spacing:.02em;
+  }
+
+  /* ---------- pastilles de cycle : lent | rapide ---------- */
+  .cycles{display:flex;gap:.5rem;align-items:stretch}
+  .cyc{flex:1;display:flex;flex-direction:column;gap:.28rem;min-width:0}
+  .cyc-bars{display:flex;gap:.18rem;height:.5rem}
+  .seg{flex:1;background:var(--paper-faint);border-radius:1px;position:relative;overflow:hidden}
+  .seg::after{
+    content:"";position:absolute;inset:0;transform-origin:left;
+    transform:scaleX(var(--fill,0));background:var(--paper);
+  }
+  .seg.fast::after{background:#FF7A55}
+  .cyc-n{
+    font-family:var(--mono);font-size:.62rem;color:var(--paper-faint);
+    letter-spacing:.1em;text-align:center;
+  }
+  .cyc.on .cyc-n{color:var(--paper)}
+
+  /* ---------- coeur ---------- */
+  .core{
+    flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:clamp(.25rem,1.5vh,.75rem);text-align:center;min-height:0;
+  }
+  .phase{
+    font-size:clamp(1.6rem,9vw,3.2rem);font-weight:900;line-height:1;
+    letter-spacing:.06em;margin:0;text-wrap:balance;
+  }
+  .phase small{
+    display:block;font-family:var(--mono);font-weight:400;
+    font-size:clamp(.7rem,2.8vw,.9rem);letter-spacing:.18em;
+    color:var(--paper-dim);margin-top:.6em;
+  }
+  .clock{
+    font-family:var(--mono);font-weight:700;
+    font-size:clamp(4.5rem,26vw,11rem);line-height:.86;
+    font-variant-numeric:tabular-nums;letter-spacing:-.03em;margin:0;
+  }
+  .clock.urgent{animation:pulse .5s steps(2,end) infinite}
+  @keyframes pulse{50%{opacity:.35}}
+
+  .meter{width:100%;max-width:34rem;height:.45rem;background:var(--paper-faint);border-radius:99px;overflow:hidden}
+  .meter i{display:block;height:100%;width:0;background:var(--paper);border-radius:99px}
+
+  /* ---------- commandes ---------- */
+  .controls{display:flex;gap:.6rem;align-items:stretch}
+  button{font-family:inherit;cursor:pointer;border:0;color:inherit}
+  button:focus-visible{outline:3px solid var(--paper);outline-offset:3px}
+  .go{
+    flex:1;background:var(--paper);color:var(--ai-900);
+    font-size:clamp(1.1rem,5vw,1.5rem);font-weight:900;letter-spacing:.05em;
+    padding:clamp(.9rem,3.4vh,1.35rem);border-radius:6px;
+    transition:transform .12s ease, background-color .2s ease;
+  }
+  .go:active{transform:scale(.98)}
+  .stage[data-phase="fast"] .go{color:var(--shu-900)}
+  .ghost{
+    background:transparent;border:1.5px solid var(--paper-faint);
+    color:var(--paper-dim);padding:0 clamp(1rem,4vw,1.6rem);
+    border-radius:6px;font-size:.85rem;font-weight:700;letter-spacing:.08em;
+  }
+  .ghost:hover{border-color:var(--paper);color:var(--paper)}
+
+  /* ---------- réglages ---------- */
+  details{border-top:1px solid var(--paper-faint);padding-top:.7rem}
+  summary{
+    list-style:none;cursor:pointer;font-family:var(--mono);
+    font-size:.72rem;letter-spacing:.14em;color:var(--paper-dim);
+  }
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:"▸ ";display:inline-block;transition:transform .2s}
+  details[open] summary::before{content:"▾ "}
+  .settings{display:grid;grid-template-columns:repeat(auto-fit,minmax(8.5rem,1fr));gap:.9rem;padding-top:.9rem}
+  .field{display:flex;flex-direction:column;gap:.3rem}
+  .field label{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;color:var(--paper-dim)}
+  .field input[type="number"]{
+    font-family:var(--mono);font-size:1rem;font-variant-numeric:tabular-nums;
+    background:rgba(0,0,0,.28);border:1px solid var(--paper-faint);color:var(--paper);
+    border-radius:4px;padding:.45rem .55rem;width:100%;
+  }
+  .field input[type="range"]{width:100%;accent-color:var(--paper);height:1.6rem}
+  .test{
+    align-self:end;background:transparent;border:1.5px solid var(--paper-faint);
+    border-radius:4px;padding:.5rem;font-family:var(--mono);font-size:.7rem;
+    letter-spacing:.1em;color:var(--paper-dim);
+  }
+  .test:hover{border-color:var(--paper);color:var(--paper)}
+  .note{
+    grid-column:1/-1;font-size:.75rem;line-height:1.55;color:var(--paper-dim);
+    max-width:62ch;margin:0;
+  }
+
+  /* Gabarit iPhone : la scène ne dépasse jamais la largeur d'un téléphone.
+     Sur un grand écran, elle reste centrée dans le même format vertical. */
+  .stage{width:100%;max-width:26.875rem;margin-inline:auto} /* 430px = iPhone Pro Max */
+
+  @media (min-width:32rem){
+    body{
+      background:#0B1120;
+      display:flex;align-items:center;justify-content:center;
+      min-height:100vh;min-height:100dvh;padding:1.5rem 0;
+    }
+    .stage{
+      height:min(90dvh,58rem);min-height:0;
+      border-radius:2.75rem;
+      box-shadow:0 0 0 .55rem #05070D, 0 1.5rem 4rem rgba(0,0,0,.6);
+      overflow:hidden;
+    }
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important;transition:none !important}
+  }
+</style>
+
+<main class="stage" id="stage" data-phase="idle">
+
+  <div class="top">
+    <h1 class="brand">Marche Japonaise<span>3 min lent · 3 min rapide</span></h1>
+    <div class="total" id="total">30:00 restantes</div>
+  </div>
+
+  <div class="cycles" id="cycles" aria-hidden="true"></div>
+
+  <div class="core">
+    <h2 class="phase" id="phase">Prêt<small id="hint">appuyez sur démarrer</small></h2>
+    <p class="clock" id="clock">03:00</p>
+    <div class="meter"><i id="meter"></i></div>
+  </div>
+
+  <div class="controls">
+    <button class="go" id="go">DÉMARRER</button>
+    <button class="ghost" id="reset">RAZ</button>
+  </div>
+
+  <details>
+    <summary>RÉGLAGES</summary>
+    <div class="settings">
+      <div class="field">
+        <label for="slowMin">Marche lente (min)</label>
+        <input type="number" id="slowMin" value="3" min="1" max="15" step="0.5" inputmode="decimal">
+      </div>
+      <div class="field">
+        <label for="fastMin">Marche rapide (min)</label>
+        <input type="number" id="fastMin" value="3" min="1" max="15" step="0.5" inputmode="decimal">
+      </div>
+      <div class="field">
+        <label for="cyclesN">Cycles</label>
+        <input type="number" id="cyclesN" value="5" min="1" max="12" step="1" inputmode="numeric">
+      </div>
+      <div class="field">
+        <label for="vol">Puissance des bips</label>
+        <input type="range" id="vol" min="0" max="100" value="100">
+      </div>
+      <button class="test" id="test">TESTER LE BIP</button>
+      <p class="note">Trois bips courts annoncent chaque changement d'allure, puis un bip long marque le passage. Montez le volume au maximum et basculez le bouton latéral de l'iPhone hors mode silencieux : le son est généré à pleine puissance. L'écran reste allumé, et les bips continuent iPhone verrouillé dans la poche.</p>
+    </div>
+  </details>
+
+</main>
+
+<script>
+(function(){
+  "use strict";
+
+  var stage=document.getElementById("stage"),
+      clockEl=document.getElementById("clock"),
+      phaseEl=document.getElementById("phase"),
+      hintEl=document.getElementById("hint"),
+      totalEl=document.getElementById("total"),
+      meterEl=document.getElementById("meter"),
+      cyclesEl=document.getElementById("cycles"),
+      goBtn=document.getElementById("go"),
+      resetBtn=document.getElementById("reset"),
+      testBtn=document.getElementById("test"),
+      volEl=document.getElementById("vol"),
+      slowEl=document.getElementById("slowMin"),
+      fastEl=document.getElementById("fastMin"),
+      cycEl=document.getElementById("cyclesN");
+
+  /* ---------------- audio ---------------- */
+  var ctx=null,master=null,live=[];
+
+  function audio(){
+    if(!ctx){
+      var AC=window.AudioContext||window.webkitAudioContext;
+      ctx=new AC();
+      var comp=ctx.createDynamicsCompressor();
+      comp.threshold.value=-6; comp.knee.value=0; comp.ratio.value=12;
+      comp.attack.value=0.002; comp.release.value=0.1;
+      master=ctx.createGain();
+      master.gain.value=1;
+      master.connect(comp); comp.connect(ctx.destination);
+    }
+    if(ctx.state!=="running") ctx.resume();
+    return ctx;
+  }
+
+  // Un bip = deux ondes carrées (fondamentale + quinte) : riche en harmoniques,
+  // donc perçu très fort sur un haut-parleur de téléphone.
+  function beep(at,freq,dur,level){
+    var c=audio(),
+        amp=(level==null?1:level)*(volEl.value/100);
+    if(amp<=0) return;
+    var g=c.createGain();
+    g.gain.setValueAtTime(0.0001,at);
+    g.gain.exponentialRampToValueAtTime(amp,at+0.004);
+    g.gain.setValueAtTime(amp,at+dur-0.03);
+    g.gain.exponentialRampToValueAtTime(0.0001,at+dur);
+    g.connect(master);
+    [[freq,0.6],[freq*1.5,0.4],[freq*2,0.25]].forEach(function(p){
+      var o=c.createOscillator(),og=c.createGain();
+      o.type="square"; o.frequency.setValueAtTime(p[0],at);
+      og.gain.value=p[1];
+      o.connect(og); og.connect(g);
+      o.start(at); o.stop(at+dur+0.02);
+      live.push(o);
+    });
+  }
+
+  function silence(){
+    live.forEach(function(o){ try{o.stop();}catch(e){} });
+    live=[];
+  }
+
+  /* iOS suspend le moteur audio dès que plus rien ne joue : une porteuse
+     grave quasi inaudible garde la session ouverte, donc les bips sonnent
+     même écran verrouillé, poche fermée. */
+  var carrier=null;
+  function carrierOn(){
+    if(carrier) return;
+    var c=audio(),o=c.createOscillator(),g=c.createGain();
+    o.type="sine"; o.frequency.value=55;
+    g.gain.value=0.0015;
+    o.connect(g); g.connect(master);
+    o.start();
+    carrier={o:o,g:g};
+  }
+  function carrierOff(){
+    if(!carrier) return;
+    try{carrier.o.stop();}catch(e){}
+    carrier=null;
+  }
+
+  /* ---------------- séance ---------------- */
+  var plan=[],total=0,elapsedBefore=0,runFrom=0,running=false,finished=false,lastCross=-1;
+
+  function buildPlan(){
+    var s=Math.max(0.5,parseFloat(slowEl.value)||3)*60,
+        f=Math.max(0.5,parseFloat(fastEl.value)||3)*60,
+        n=Math.max(1,Math.min(12,parseInt(cycEl.value,10)||5));
+    plan=[]; total=0;
+    for(var i=0;i<n;i++){
+      plan.push({kind:"slow",dur:s,cycle:i});
+      plan.push({kind:"fast",dur:f,cycle:i});
+    }
+    plan.forEach(function(p){ p.start=total; total+=p.dur; });
+    drawCycles(n);
+  }
+
+  function drawCycles(n){
+    cyclesEl.innerHTML="";
+    for(var i=0;i<n;i++){
+      var d=document.createElement("div"); d.className="cyc";
+      d.innerHTML='<div class="cyc-bars"><span class="seg slow"></span><span class="seg fast"></span></div>'+
+                  '<div class="cyc-n">'+(i+1)+'</div>';
+      cyclesEl.appendChild(d);
+    }
+  }
+
+  function elapsed(){
+    return running ? elapsedBefore + (audio().currentTime - runFrom) : elapsedBefore;
+  }
+
+  function segAt(t){
+    for(var i=0;i<plan.length;i++){
+      if(t < plan[i].start + plan[i].dur) return i;
+    }
+    return -1;
+  }
+
+  /* Tous les bips restants sont programmés d'avance dans le moteur audio :
+     ils sonnent à l'heure même si l'écran s'éteint ou si l'onglet passe en veille. */
+  function schedule(){
+    silence();
+    var c=audio(), t0=c.currentTime, e=elapsed();
+    plan.forEach(function(p,i){
+      var end=p.start+p.dur, next=plan[i+1];
+      for(var k=3;k>=1;k--){
+        var tick=end-k;
+        if(tick>e) beep(t0+(tick-e),1500,0.09,0.75);
+      }
+      if(end>e){
+        var at=t0+(end-e);
+        if(next){
+          if(next.kind==="fast") beep(at,1250,0.55,1);
+          else beep(at,700,0.55,1);
+        }else{
+          [0,0.28,0.56,0.9].forEach(function(o,j){
+            beep(at+o,j===3?1400:1000,j===3?0.7:0.18,1);
+          });
+        }
+      }
+    });
+  }
+
+  function fmt(s){
+    s=Math.max(0,Math.ceil(s));
+    var m=Math.floor(s/60);
+    return (m<10?"0":"")+m+":"+(s%60<10?"0":"")+(s%60);
+  }
+
+  var LABEL={slow:"MARCHE LENTE",fast:"MARCHE RAPIDE"},
+      HINT={slow:"allure de promenade · récupérez",fast:"allure soutenue · essoufflé mais capable de parler"};
+
+  function render(){
+    var e=elapsed();
+
+    if(e>=total){ finish(); return; }
+
+    var i=segAt(e), p=plan[i], left=p.start+p.dur-e;
+
+    stage.dataset.phase=p.kind;
+    phaseEl.firstChild.nodeValue=LABEL[p.kind];
+    hintEl.textContent=HINT[p.kind];
+    clockEl.textContent=fmt(left);
+    clockEl.classList.toggle("urgent",running&&left<=3);
+    totalEl.textContent=fmt(total-e)+" restantes";
+    meterEl.style.width=(e/total*100).toFixed(2)+"%";
+
+    var segs=cyclesEl.querySelectorAll(".seg");
+    for(var k=0;k<plan.length;k++){
+      if(!segs[k]) break;
+      var f=(e-plan[k].start)/plan[k].dur;
+      segs[k].style.setProperty("--fill",Math.max(0,Math.min(1,f)).toFixed(3));
+    }
+    var cyc=cyclesEl.children;
+    for(var j=0;j<cyc.length;j++) cyc[j].classList.toggle("on",j===p.cycle);
+
+    // vibration au passage (meilleur effort, écran allumé)
+    if(running&&i!==lastCross){
+      if(lastCross!==-1&&navigator.vibrate) navigator.vibrate(p.kind==="fast"?[220,90,220]:400);
+      lastCross=i;
+    }
+
+    if(running) requestAnimationFrame(render);
+  }
+
+  function finish(){
+    running=false; finished=true; elapsedBefore=total;
+    stage.dataset.phase="done";
+    phaseEl.firstChild.nodeValue="SÉANCE TERMINÉE";
+    hintEl.textContent=fmt(total)+" de marche · bravo";
+    clockEl.textContent="00:00";
+    clockEl.classList.remove("urgent");
+    totalEl.textContent="00:00 restantes";
+    meterEl.style.width="100%";
+    goBtn.textContent="RECOMMENCER";
+    releaseLock();
+    if(navigator.vibrate) navigator.vibrate([300,120,300,120,500]);
+  }
+
+  /* ---------------- écran allumé ---------------- */
+  var lock=null;
+  function keepAwake(){
+    if("wakeLock" in navigator){
+      navigator.wakeLock.request("screen").then(function(l){
+        lock=l; l.addEventListener("release",function(){ lock=null; });
+      }).catch(function(){});
+    }
+  }
+  function releaseLock(){ if(lock){ try{lock.release();}catch(e){} lock=null; } }
+
+  /* ---------------- commandes ---------------- */
+  function start(){
+    if(finished) reset();
+    if(!plan.length) buildPlan();
+    audio();
+    runFrom=ctx.currentTime;
+    running=true;
+    goBtn.textContent="PAUSE";
+    [slowEl,fastEl,cycEl].forEach(function(el){ el.disabled=true; });
+    schedule();
+    carrierOn();
+    keepAwake();
+    render();
+  }
+
+  function pause(){
+    elapsedBefore=elapsed();
+    running=false;
+    silence();
+    carrierOff();
+    releaseLock();
+    goBtn.textContent="REPRENDRE";
+    clockEl.classList.remove("urgent");
+    render();
+  }
+
+  function reset(){
+    running=false; finished=false; elapsedBefore=0; lastCross=-1;
+    silence(); carrierOff(); releaseLock();
+    buildPlan();
+    stage.dataset.phase="idle";
+    phaseEl.firstChild.nodeValue="Prêt";
+    hintEl.textContent="appuyez sur démarrer";
+    clockEl.textContent=fmt(plan[0].dur);
+    clockEl.classList.remove("urgent");
+    totalEl.textContent=fmt(total)+" restantes";
+    meterEl.style.width="0%";
+    cyclesEl.querySelectorAll(".seg").forEach(function(s){ s.style.setProperty("--fill",0); });
+    goBtn.textContent="DÉMARRER";
+    [slowEl,fastEl,cycEl].forEach(function(el){ el.disabled=false; });
+  }
+
+  goBtn.addEventListener("click",function(){ running?pause():start(); });
+  resetBtn.addEventListener("click",reset);
+  testBtn.addEventListener("click",function(){
+    var c=audio();
+    beep(c.currentTime+0.05,1500,0.09,0.75);
+    beep(c.currentTime+0.35,1250,0.55,1);
+  });
+  [slowEl,fastEl,cycEl].forEach(function(el){
+    el.addEventListener("change",function(){ if(!running) reset(); });
+  });
+
+  document.addEventListener("visibilitychange",function(){
+    if(!document.hidden){
+      if(ctx&&ctx.state!=="running") ctx.resume();
+      if(running){ if(!lock) keepAwake(); render(); }
+    }
+  });
+
+  document.addEventListener("keydown",function(ev){
+    if(ev.code==="Space"&&ev.target.tagName!=="INPUT"){ ev.preventDefault(); goBtn.click(); }
+  });
+
+  buildPlan();
+  reset();
+})();
+</script>
+<!--ARTIFACT-END-->
+</body>
+</html>
