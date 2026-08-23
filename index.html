@@ -131,6 +131,24 @@
   }
   .ghost:hover{border-color:var(--paper);color:var(--paper)}
 
+  /* ---------- bandeau son : visible, jamais caché dans les réglages ---------- */
+  .sound{
+    display:flex;flex-direction:column;gap:.5rem;
+    background:rgba(0,0,0,.24);border:1px solid var(--paper-faint);
+    border-radius:8px;padding:.75rem;
+  }
+  .sound button{
+    background:transparent;border:1.5px solid var(--paper);color:var(--paper);
+    border-radius:5px;padding:.6rem;font-weight:700;font-size:.9rem;letter-spacing:.06em;
+  }
+  .sound button:active{background:var(--paper);color:var(--ground)}
+  .sound p{
+    margin:0;font-size:.74rem;line-height:1.5;color:var(--paper-dim);
+  }
+  .sound p b{color:var(--paper);font-weight:700}
+  .sound p.warn{color:#FFC46B}
+  .sound ol{margin:.4rem 0 0;padding-left:1.1rem;font-size:.74rem;line-height:1.6;color:var(--paper-dim)}
+
   /* ---------- réglages ---------- */
   details{border-top:1px solid var(--paper-faint);padding-top:.7rem}
   summary{
@@ -189,6 +207,11 @@
     <div class="total" id="total">30:00 restantes</div>
   </div>
 
+  <div class="sound">
+    <button id="test">🔊 TESTER LE SON</button>
+    <p id="sndStatus">Sur iPhone, le <b>bouton latéral doit être sur sonnerie</b> : en mode silencieux, iOS coupe le son de toutes les pages web, même volume au maximum.</p>
+  </div>
+
   <div class="cycles" id="cycles" aria-hidden="true"></div>
 
   <div class="core">
@@ -221,8 +244,7 @@
         <label for="vol">Puissance des bips</label>
         <input type="range" id="vol" min="0" max="100" value="100">
       </div>
-      <button class="test" id="test">TESTER LE BIP</button>
-      <p class="note">Trois bips courts annoncent chaque changement d'allure, puis un bip long marque le passage. Montez le volume au maximum et basculez le bouton latéral de l'iPhone hors mode silencieux : le son est généré à pleine puissance. L'écran reste allumé, et les bips continuent iPhone verrouillé dans la poche.</p>
+      <p class="note">Trois bips courts annoncent chaque changement d'allure, puis un bip long marque le passage : aigu vers la marche rapide, grave vers la marche lente. Les bips sont programmés d'avance dans le moteur audio, ils sonnent à l'heure même iPhone verrouillé dans la poche.</p>
     </div>
   </details>
 
@@ -242,6 +264,7 @@
       goBtn=document.getElementById("go"),
       resetBtn=document.getElementById("reset"),
       testBtn=document.getElementById("test"),
+      sndStatus=document.getElementById("sndStatus"),
       volEl=document.getElementById("vol"),
       slowEl=document.getElementById("slowMin"),
       fastEl=document.getElementById("fastMin"),
@@ -484,10 +507,65 @@
 
   goBtn.addEventListener("click",function(){ running?pause():start(); });
   resetBtn.addEventListener("click",reset);
+  /* Moteur de secours : un vrai fichier WAV joué par un élément <audio>.
+     Certains navigateurs embarqués bloquent le moteur Web Audio mais laissent
+     passer un média classique. Le WAV est fabriqué ici, aucun fichier externe. */
+  var fallback=null;
+  function wavBeep(){
+    var rate=22050,n=Math.floor(rate*0.55),buf=new ArrayBuffer(44+n*2),v=new DataView(buf);
+    function tag(o,t){ for(var i=0;i<t.length;i++) v.setUint8(o+i,t.charCodeAt(i)); }
+    tag(0,"RIFF"); v.setUint32(4,36+n*2,true); tag(8,"WAVE");
+    tag(12,"fmt "); v.setUint32(16,16,true); v.setUint16(20,1,true); v.setUint16(22,1,true);
+    v.setUint32(24,rate,true); v.setUint32(28,rate*2,true); v.setUint16(32,2,true); v.setUint16(34,16,true);
+    tag(36,"data"); v.setUint32(40,n*2,true);
+    for(var i=0;i<n;i++){
+      var t=i/rate,
+          env=Math.min(1,t/0.004)*Math.min(1,(0.55-t)/0.04),
+          sq=(Math.sin(2*Math.PI*1250*t)>=0?1:-1)*0.55
+            +(Math.sin(2*Math.PI*1875*t)>=0?1:-1)*0.35;
+      v.setInt16(44+i*2,Math.max(-1,Math.min(1,sq))*env*32700,true);
+    }
+    var by=new Uint8Array(buf),bin="";
+    for(var j=0;j<by.length;j++) bin+=String.fromCharCode(by[j]);
+    return "data:audio/wav;base64,"+btoa(bin);
+  }
+  function playFallback(){
+    if(!fallback){
+      fallback=new Audio(wavBeep());
+      fallback.setAttribute("playsinline","");
+      fallback.preload="auto";
+    }
+    fallback.volume=Math.max(0,Math.min(1,volEl.value/100));
+    fallback.currentTime=0;
+    return fallback.play();
+  }
+
   testBtn.addEventListener("click",function(){
-    var c=audio();
-    beep(c.currentTime+0.05,1500,0.09,0.75);
-    beep(c.currentTime+0.35,1250,0.55,1);
+    var ok=false;
+    try{
+      var c=audio();
+      beep(c.currentTime+0.05,1500,0.09,0.75);
+      beep(c.currentTime+0.35,1250,0.55,1);
+      ok=(c.state==="running");
+    }catch(e){ ok=false; }
+
+    if(ok){
+      sndStatus.className="";
+      sndStatus.innerHTML="Bip envoyé à <b>pleine puissance</b>. Rien entendu ?"+
+        "<ol><li>Bouton latéral de l'iPhone sur <b>sonnerie</b>, pas silencieux.</li>"+
+        "<li>Volume au maximum avec les boutons +.</li>"+
+        "<li>Aucun casque ni enceinte Bluetooth connecté.</li></ol>";
+    }else{
+      sndStatus.className="warn";
+      sndStatus.textContent="Ce navigateur bloque le moteur audio. Essai avec le lecteur de secours…";
+      playFallback().then(function(){
+        sndStatus.className="";
+        sndStatus.textContent="Le lecteur de secours fonctionne. Ouvrez la page directement dans Safari pour les bips les plus puissants.";
+      }).catch(function(){
+        sndStatus.className="warn";
+        sndStatus.textContent="Aucun son possible ici. Ouvrez la page dans Safari, hors mode silencieux.";
+      });
+    }
   });
   [slowEl,fastEl,cycEl].forEach(function(el){
     el.addEventListener("change",function(){ if(!running) reset(); });
