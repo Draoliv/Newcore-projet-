@@ -1,120 +1,118 @@
-# La méthode des 3 minutes : « Stop, Souffle, Sonde »
+# La méthode des 3 minutes du soir : « Écris, Répète, Endors-toi »
 
 Support de prise en charge, à l'usage du praticien.
 Version de travail, à adapter à votre pratique et à chaque patient.
 
-> **Origine et limites.** Cette méthode est une construction originale qui assemble deux techniques validées : l'espace de respiration de 3 minutes (MBCT) et l'identification / remise en question des pensées automatiques (TCC). Elle ne reproduit pas le contenu de la vidéo « Ton cerveau te ment » (Tafeurs), dont je n'ai pas pu voir le texte. Elle reprend seulement son idée centrale : le cerveau interprète et déforme. C'est un outil d'appoint, pas un traitement à lui seul.
+> **Source.** Cette fiche suit la description de la méthode que vous m'avez donnée à partir de la vidéo « Ton cerveau te ment » (Tafeurs). Je n'ai pas pu voir ni entendre la vidéo : seul son titre m'est accessible. Les consignes pratiques et les mots-clés viennent de votre description. Les parties « preuves » et « précautions » sont mon analyse.
 
 ---
 
 ## 1. Le principe en une phrase
 
-**« Ce que je pense n'est pas forcément ce qui est. »**
-En 3 minutes, le patient s'arrête, se pose, puis vérifie sa pensée avant d'agir ou de ruminer.
+**Chaque soir, en 3 minutes, le patient prépare une scène positive pour le lendemain, la résume en une phrase, la répète et s'endort avec elle en tête.**
 
-## 2. Les 3 mots-clés (1 minute chacun)
+## 2. Les 3 mots-clés
 
-| Minute | Mot-clé | Question à se poser | Geste associé |
+| Étape | Mot-clé | Durée | Ce que fait le patient |
 |---|---|---|---|
-| 1 | **STOP** | « Qu'est-ce qui se passe en moi, là, maintenant ? » | Poser une main sur le ventre |
-| 2 | **SOUFFLE** | « Où est mon souffle ? » | Respirer lentement, expiration plus longue |
-| 3 | **SONDE** | « Est-ce un fait, ou une histoire que mon cerveau me raconte ? » | Ouvrir la main, comme pour laisser partir la pensée |
+| 1 | **ÉCRIS** | ~1 min | Il écrit à la main une scène positive qui se passe demain. |
+| 2 | **RÉPÈTE** | ~1 min 30 | Il répète 3 fois 7 fois la phrase qui résume la scène. |
+| 3 | **ENDORS-TOI** | ~30 s, puis le sommeil | Il éteint, garde la scène en tête et s'endort. |
 
-Moyen mnémotechnique : **3 minutes = 3 S = 3 gestes** (main au ventre, souffle, main ouverte).
+Moyen mnémotechnique : **3 verbes, 3 × 7 répétitions, 3 minutes**. Les 7 répétitions se comptent sur les doigts, une main pour compter, une série par vague de respiration.
 
-### Minute 1 : STOP (observer)
-Objectif : sortir du pilote automatique.
-Le patient nomme à voix basse ou par écrit, sans juger :
-- **Pensée** : « Je pense que… »
-- **Émotion** : « Je ressens… » (peur, colère, tristesse, honte)
-- **Corps** : « Dans mon corps, il y a… » (gorge serrée, ventre noué, cœur rapide)
+## 3. Le détail de chaque étape
 
-Phrase de départ : *« En ce moment, j'ai la pensée que… »* Dire « j'ai la pensée que » au lieu de « c'est vrai que » crée déjà de la distance.
+### ÉCRIS : la scène de demain
+Consignes à donner au patient :
+- **Écrire à la main**, sur papier, lumière douce, sans écran.
+- **Une seule scène**, courte (3 à 5 lignes), qui se passe **demain**.
+- **Au présent, à la première personne** : « Je suis… je fais… je ressens… ».
+- **Concrète et sensorielle** : le lieu, ce que je vois, ce que j'entends, ce que je ressens dans le corps.
+- **Réaliste et dépendante de moi** : une attitude, un comportement, un état d'esprit (« j'arrive calme à ma réunion »), pas un résultat qui dépend des autres (« mon patron me félicite »).
+- **Une phrase-clé** qui résume la scène : 10 à 12 mots maximum, positive, au présent, facile à dire.
 
-### Minute 2 : SOUFFLE (se recentrer)
-Objectif : apaiser le corps pour que la réflexion redevienne possible.
-- Attention portée sur la respiration, sans la modifier au début.
-- Puis expiration plus longue que l'inspiration (ex. inspirer 4 temps, expirer 6).
-- Si l'esprit s'échappe, le ramener au souffle, sans se reprocher de s'être égaré.
+Exemple de scène : *« Demain matin, je marche vers le bureau. Je sens l'air frais, mes épaules sont détendues. J'entre, je salue mes collègues avec le sourire. »*
+Exemple de phrase-clé : *« Demain, j'avance détendu et à l'aise. »*
 
-### Minute 3 : SONDE (vérifier la pensée)
-Objectif : tester la pensée au lieu de la croire d'emblée.
-Trois questions courtes (mnémotechnique **P.R.E.**) :
-- **P**reuve : « Qu'est-ce qui prouve que c'est vrai ? Qu'est-ce qui montre le contraire ? »
-- **R**ecul : « Que dirais-je à un ami qui pense ça ? »
-- **E**ssentiel : « Quelle est la prochaine petite action utile, dans l'heure qui vient ? »
+### RÉPÈTE : 3 × 7
+- Relire la scène une fois.
+- Dire la phrase-clé **7 fois**, calmement, à voix basse ou dans la tête, en respirant lentement. Faire **3 séries**, soit 21 répétitions, avec une courte pause entre chaque.
+- Pendant la répétition, **revoir la scène** (images, sensations) et ne pas réciter mécaniquement.
+- Compter sur les doigts pour ne pas avoir à penser au chiffre.
 
-Le patient termine par une phrase de remplacement, plus nuancée : *« Une autre façon de voir : … »*
+### ENDORS-TOI
+- Poser le papier, éteindre, laisser la scène en arrière-plan.
+- Si l'esprit s'égare, revenir **doucement** à la phrase-clé, sans se forcer ni se reprocher d'avoir divagué.
+- Le but est de s'endormir sur une pensée apaisante, pas de réussir quelque chose.
 
-## 3. Les « mensonges du cerveau » : un vocabulaire simple
+## 4. Ce que dit la recherche, et ce qu'elle ne dit pas
 
-Pour que le patient repère ses pièges, donnez-lui des noms courts et imagés. Ils correspondent à des distorsions cognitives classiques.
+Pour que votre usage clinique reste honnête avec les patients, voici ce qui est étayé et ce qui ne l'est pas. Les références sont à vérifier avant toute diffusion formelle.
 
-| Nom imagé | Distorsion correspondante | Exemple |
-|---|---|---|
-| **Le catastrophe** | Catastrophisme | « Ce mal de tête, c'est forcément grave. » |
-| **Le tout ou rien** | Pensée dichotomique | « J'ai raté une fois, je suis nul. » |
-| **Le lecteur de pensées** | Lecture de pensée | « Il ne m'a pas répondu, il m'en veut. » |
-| **Le juge** | Étiquetage | « Je suis un raté. » |
-| **La loupe noire** | Filtre mental | Ne retenir que le négatif de la journée. |
-| **Le « je dois »** | Injonctions | « Je dois toujours être parfait. » |
-| **L'émotion-preuve** | Raisonnement émotionnel | « J'ai peur, donc il y a un danger. » |
+**Ce qui est soutenu :**
+- **La répétition mentale** (visualiser une action avant de la faire) améliore la performance et la confiance dans plusieurs domaines. C'est bien documenté.
+- **Les intentions d'implantation** (« si X, alors je fais Y ») aident à passer à l'acte. Une scène précise du lendemain y ressemble.
+- **Écrire avant de dormir** peut aider à s'endormir. Des études sur l'écriture d'une liste de tâches pour le lendemain montrent un endormissement plus rapide que l'écriture sur le passé.
+- **S'endormir sur une pensée apaisante** plutôt que sur des ruminations est bénéfique pour le sommeil et l'anxiété.
+- **Le sommeil consolide la mémoire** de ce qu'on a appris juste avant.
 
-Consigne au patient : *« Donne un nom à ton piège. Un piège nommé perd de son pouvoir. »*
+**Ce qui n'est pas démontré :**
+- **« Reprogrammer le subconscient pendant le sommeil » en répétant une phrase.** L'apprentissage d'informations nouvelles pendant le sommeil (hypnopédie) ne fonctionne pas chez l'humain. Des travaux en laboratoire sur la réactivation ciblée de souvenirs existent, mais ils ne valident pas cette affirmation pour une phrase qu'on se répète en s'endormant.
+- **Le chiffre 3 × 7 = 21.** Je n'ai trouvé aucune étude qui justifie ce nombre. Il fonctionne comme un rituel et un moyen de compter, ce qui a une vraie valeur pratique, mais pas une valeur « scientifique ».
+- **« C'est plus facile la nuit ».** On est plus détendu et plus suggestible avant l'endormissement, mais cela ne veut pas dire que le sommeil lui-même reprogramme quoi que ce soit.
 
-## 4. Déroulé conseillé en séance
+**Comment le présenter honnêtement au patient :** *« Ce rituel vous prépare mentalement à demain et vous aide à vous endormir plus calmement. Ce n'est pas une programmation magique pendant le sommeil. »* Le bénéfice probable vient de la préparation, de la visualisation et de l'apaisement, ce qui suffit à justifier la méthode.
 
-1. **Expliquer (5 min)** : « Le cerveau n'enregistre pas la réalité, il l'interprète. » Un exemple concret tiré de la vie du patient.
-2. **Démontrer (3 min)** : faire la méthode ensemble, à voix haute, une fois.
-3. **Faire pratiquer (5 min)** : le patient la refait seul, sur une situation réelle récente, vous observez.
-4. **Remettre le support** : la fiche patient ci-dessous.
-5. **Prescrire** : 2 à 3 fois par jour pendant une semaine, dont une fois à froid (sans émotion forte) pour automatiser le geste, puis dès que l'émotion monte.
-6. **Revoir** : à la séance suivante, regarder la fiche remplie et ajuster.
+## 5. Déroulé conseillé en séance
 
-## 5. Fiche patient (à imprimer)
+1. **Expliquer (3 min)** : le cerveau anticipe, et ce qu'on imagine à l'avance oriente nos réactions le lendemain.
+2. **Faire la méthode ensemble (5 min)** : écrire une scène réelle pour demain, trouver la phrase-clé, faire une série de 7 à voix haute.
+3. **Ajuster** : vérifier que la scène est réaliste, au présent, concrète, et qu'elle dépend du patient.
+4. **Remettre la fiche patient** (ci-dessous).
+5. **Prescrire** : tous les soirs pendant 2 à 3 semaines, au même moment (avant l'extinction de la lumière).
+6. **Revoir** : regarder les scènes écrites, le sommeil, et la façon dont les journées se sont passées.
 
-**MES 3 MINUTES : STOP, SOUFFLE, SONDE**
+## 6. Fiche patient (à imprimer)
 
-**1. STOP** (main sur le ventre)
-- Ma pensée : « J'ai la pensée que… »
-- Mon émotion : ______ (intensité de 0 à 10 : __)
-- Mon corps : ______
+**MES 3 MINUTES DU SOIR : ÉCRIS, RÉPÈTE, ENDORS-TOI**
 
-**2. SOUFFLE** (1 minute)
-Inspirer 4 temps, expirer 6 temps. Je ramène l'attention au souffle sans me juger.
+**1. ÉCRIS** (papier, lumière douce, sans écran)
+Ma scène de demain, au présent, avec ce que je vois, entends et ressens :
+___________________________________________
+___________________________________________
+Ma phrase-clé (10 à 12 mots) : ___________________________________
 
-**3. SONDE** (main ouverte)
-- **P**reuve : pour / contre
-- **R**ecul : que dirais-je à un ami ?
-- **E**ssentiel : ma prochaine petite action
-- Piège repéré (nom imagé) : ______
-- Autre façon de voir : ______
+**2. RÉPÈTE** (3 × 7, je compte sur mes doigts)
+- Série 1 : 7 fois ☐
+- Série 2 : 7 fois ☐
+- Série 3 : 7 fois ☐
+En revoyant ma scène, calmement.
 
-Intensité de l'émotion après : __ / 10
+**3. ENDORS-TOI**
+Je pose le papier, j'éteins, je garde ma scène en arrière-plan. Si je divague, je reviens doucement à ma phrase.
 
-## 6. Suivi (tableau à remplir par le patient)
+**Le lendemain matin (facultatif, 30 secondes)** : je relis ma phrase-clé.
 
-| Date | Situation | Piège repéré | Émotion avant (0-10) | Émotion après (0-10) |
+## 7. Suivi (tableau à remplir par le patient)
+
+| Date | Ma phrase-clé | Temps pour m'endormir (approx.) | Comment s'est passée la scène réelle (0-10) | Remarque |
 |---|---|---|---|---|
 | | | | | |
 
-Indicateur simple pour vous : la baisse moyenne d'intensité et le temps de retour au calme.
+Repères pour vous : régularité de la pratique, qualité du sommeil, changement d'attitude face aux situations visées.
 
-## 7. Précautions et indications
+## 8. Précautions et limites
 
-- **À adapter** selon le profil : le recentrage sur la respiration peut augmenter l'anxiété chez certaines personnes (attaques de panique, antécédents de trauma). Dans ce cas, proposer un point d'ancrage externe (poser les pieds au sol, nommer 5 objets visibles) à la place de la respiration.
-- **Ne pas utiliser seul** en cas de crise suicidaire, de symptômes psychotiques ou de dissociation sévère : suivre votre protocole habituel.
-- **La remise en question n'est pas une négation** : ne pas pousser le patient à « penser positif ». Le but est une pensée plus juste, pas plus rose.
-- **Éviter l'autocritique** : si le patient « rate » l'exercice, c'est aussi une donnée utile, pas un échec.
-
-## 8. Éléments de preuve (à vérifier avant diffusion)
-
-- L'espace de respiration de 3 minutes provient de la thérapie cognitive basée sur la pleine conscience (Segal, Williams et Teasdale), conçue pour prévenir la rechute dépressive.
-- La restructuration cognitive et les distorsions cognitives viennent de la thérapie cognitive de Beck.
-- Je n'ai pas vérifié les références bibliographiques exactes ni les tailles d'effet : à contrôler dans la littérature avant tout usage formel ou toute communication aux patients.
+- **Insomnie avec anxiété de performance** : si le patient se met la pression pour « bien faire l'exercice » ou s'endormir plus vite, le rituel peut aggraver l'insomnie. Dans ce cas, simplifier (une seule série, ou retirer le comptage) et suivre votre protocole habituel pour l'insomnie.
+- **Scènes irréalistes ou trop idéalisées** : imaginer seulement un succès parfait peut réduire la motivation à agir (travaux sur la pensée positive d'Oettingen). Une variante utile : ajouter une ligne « s'il y a un obstacle, je fais… ».
+- **Attentes magiques** : éviter de promettre une reprogrammation du subconscient. Le patient peut se sentir en échec si ça « ne marche pas » en une semaine.
+- **Traumatismes, troubles psychotiques, dissociation, idées suicidaires** : ne pas utiliser seul, adapter au cas par cas et suivre votre protocole.
+- **Ne remplace pas un traitement** : c'est un complément dans la prise en charge.
 
 ## 9. Pistes pour la suite
 
-- Version courte « urgence » en 1 minute.
-- Version enfant / adolescent (mots-clés adaptés, dessins).
-- Une petite application ou carte à garder dans le téléphone avec le minuteur de 3 × 1 minute.
+- Version enfant ou adolescent (dessin de la scène au lieu de l'écriture).
+- Carnet de scènes à imprimer, 21 jours.
+- Variante « thème du mois » (confiance, calme, énergie) avec des exemples de phrases-clés.
+- Mise en forme Word ou PDF imprimable.
